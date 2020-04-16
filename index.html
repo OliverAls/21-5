@@ -25,6 +25,23 @@
             font-family: sans-serif;
         }
 
+        #intro,
+        #kaffe {
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-top: 70px;
+        }
+
+        #intro p,
+        #intro h2,
+        #kaffe p,
+        #kaffe h2 {
+            padding: 0 40px;
+            max-width: 1000px;
+        }
+
         #splash {
             width: 100vw;
             height: 100vh;
@@ -40,7 +57,7 @@
             width: 100vw;
             display: flex;
             justify-content: center;
-            margin: 100px 0;
+            margin: 20px 0;
             flex-wrap: wrap;
         }
 
@@ -62,9 +79,12 @@
 
     <header>
         <nav>
+            <!--
             <a href="index.html">
                 <img src="" alt="21-5 logo">
             </a>
+-->
+
         </nav>
     </header>
 
@@ -79,9 +99,6 @@
         <p></p>
     </section>
 
-
-
-
     <section id="sizes">
         <template>
             <article id="husstorrelse">
@@ -90,6 +107,10 @@
                 <p></p>
             </article>
         </template>
+    </section>
+
+    <section id="kaffe">
+
     </section>
 
 
@@ -130,9 +151,14 @@
             const splash = document.querySelector("#splash");
             const splashText = document.querySelector("h1");
 
-            splashText.textContent = landingpage.title.rendered;
-            document.querySelector("#intro").innerHTML = landingpage.content.rendered;
+            let content = landingpage.content.rendered.split(`<hr class="wp-block-separator"/>`);
+            console.log(content);
+            content.forEach(afsnit => {
+                document.querySelector("#intro").innerHTML = content[0];
+                document.querySelector("#kaffe").innerHTML = content[1];
+            });
 
+            splashText.textContent = landingpage.title.rendered;
             images.forEach(billede => {
                 const splashID = landingpage.featured_media;
                 if (billede.id == splashID) {
@@ -158,6 +184,9 @@
                 container.appendChild(klon);
 
             });
+
+
+
         }
 
     </script>
