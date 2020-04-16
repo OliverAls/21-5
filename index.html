@@ -19,10 +19,13 @@
             color: #fff;
         }
 
-
         body {
             margin: 0;
             font-family: sans-serif;
+        }
+
+        img {
+            width: 100%;
         }
 
         #intro,
@@ -32,6 +35,7 @@
             flex-direction: column;
             justify-content: center;
             margin-top: 70px;
+            margin-bottom: 30px;
         }
 
         #intro p,
@@ -64,12 +68,53 @@
         #husstorrelse {
             min-width: 300px;
             min-height: 300px;
-            background-color: orange;
+            background-color: #FF6138;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
             margin: 15px 15px;
+            color: #fff;
+        }
+
+        footer {
+            width: 100vw;
+            height: 150px;
+            background-color: #F0F0F0;
+            padding: 0 20px;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        footer img {
+            margin-top: 8px;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        footer h3 {
+            margin: 0;
+            margin-top: 10px;
+        }
+
+        .footer_logo {
+            width: 60px;
+            height: 60px;
+        }
+
+        footer .socials {}
+
+        footer .socials img {
+            width: 30px;
+        }
+
+        .footer_container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center
         }
 
     </style>
@@ -110,8 +155,27 @@
     </section>
 
     <section id="kaffe">
-
     </section>
+
+    <footer>
+        <img src="billeder/logo.svg" alt="" class="footer_logo">
+
+        <div class="footer_container">
+            <div class="footer_info">
+                <h3>21-5 A/S</h3>
+                <p>Rungstedvej 41<br>
+                    2970 Hørsholm, Denmark.
+                </p>
+            </div>
+
+            <div class="socials">
+                <a href="#"><img src="billeder/mail.svg"></a>
+                <a href="#"><img src="billeder/instagram.svg"></a>
+                <a href="#"><img src="billeder/facebook.svg"></a>
+            </div>
+        </div>
+
+    </footer>
 
 
 
