@@ -13,9 +13,16 @@
             box-sizing: border-box;
         }
 
+        h1 {
+            margin: 0;
+            font-size: 3rem;
+            color: #fff;
+        }
+
 
         body {
             margin: 0;
+            font-family: sans-serif;
         }
 
         #splash {
@@ -23,12 +30,43 @@
             height: 100vh;
             background-position: center;
             background-size: cover;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #sizes {
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            margin: 100px 0;
+            flex-wrap: wrap;
+        }
+
+        #husstorrelse {
+            min-width: 300px;
+            min-height: 300px;
+            background-color: orange;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin: 15px 15px;
         }
 
     </style>
 </head>
 
 <body>
+
+    <header>
+        <nav>
+            <a href="index.html">
+                <img src="" alt="21-5 logo">
+            </a>
+        </nav>
+    </header>
 
     <section id="splash">
 
@@ -44,6 +82,17 @@
 
 
 
+    <section id="sizes">
+        <template>
+            <article id="husstorrelse">
+                <h2></h2>
+                <p></p>
+                <p></p>
+            </article>
+        </template>
+    </section>
+
+
 
 
     <script>
@@ -51,8 +100,10 @@
 
         const pageEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/pages/13?_embed";
         const imageEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/media";
+        const houseEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/husstoerrelse";
         let landingpage = [];
         let images = [];
+        let houseSizes = [];
 
 
         function start() {
@@ -67,7 +118,10 @@
 
             const imageResponse = await fetch(imageEndpoint);
             images = await imageResponse.json();
-            //console.log(images);
+
+
+            const houseResponse = await fetch(houseEndpoint);
+            houseSizes = await houseResponse.json();
             visLanding();
         }
 
@@ -75,26 +129,34 @@
         function visLanding() {
             const splash = document.querySelector("#splash");
             const splashText = document.querySelector("h1");
-            splashText.textContent = landingpage.title.rendered;
 
+            splashText.textContent = landingpage.title.rendered;
             document.querySelector("#intro").innerHTML = landingpage.content.rendered;
 
-            //let featuredImage = ":featuredmedia:";
-            //let idk = `landingpage._embedded.wp${featuredImage}`;
-            //console.log(idk);
-
-            const splashID = landingpage.featured_media;
-
             images.forEach(billede => {
+                const splashID = landingpage.featured_media;
                 if (billede.id == splashID) {
-                    //console.log(billede);
-
-
                     splashImage = billede.guid.rendered;
                     splash.style.backgroundImage = `url(${billede.guid.rendered})`;
-
-                    console.log(`${billede.guid.rendered}`);
                 }
+            });
+
+            let container = document.querySelector("#sizes");
+            let husTemplate = document.querySelector("template");
+            container.innerHTML = "";
+
+            //console.log(houseSizes);
+
+            houseSizes.forEach(size => {
+                console.log(size);
+                let klon = husTemplate.cloneNode(true).content;
+
+                klon.querySelector("h2").textContent = size.navn;
+                klon.querySelector("p").textContent = size.beskrivelse;
+                klon.querySelector("p + p").textContent = size.pris;
+
+                container.appendChild(klon);
+
             });
         }
 
