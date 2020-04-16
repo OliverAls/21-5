@@ -6,10 +6,99 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
     <link rel="stylesheet" href="">
+
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+            margin: 0;
+        }
+
+        #splash {
+            width: 100vw;
+            height: 100vh;
+            background-position: center;
+            background-size: cover;
+        }
+
+    </style>
 </head>
 
 <body>
-    <script src=""></script>
+
+    <section id="splash">
+
+        <h1></h1>
+
+    </section>
+
+    <section id="intro">
+        <h2></h2>
+        <p></p>
+    </section>
+
+
+
+
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", start);
+
+        const pageEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/pages/13?_embed";
+        const imageEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/media";
+        let landingpage = [];
+        let images = [];
+
+
+        function start() {
+            loadData();
+        }
+
+        async function loadData() {
+            const pageResponse = await fetch(pageEndpoint);
+            landingpage = await pageResponse.json();
+            console.log(landingpage);
+
+
+            const imageResponse = await fetch(imageEndpoint);
+            images = await imageResponse.json();
+            //console.log(images);
+            visLanding();
+        }
+
+
+        function visLanding() {
+            const splash = document.querySelector("#splash");
+            const splashText = document.querySelector("h1");
+            splashText.textContent = landingpage.title.rendered;
+
+            document.querySelector("#intro").innerHTML = landingpage.content.rendered;
+
+            //let featuredImage = ":featuredmedia:";
+            //let idk = `landingpage._embedded.wp${featuredImage}`;
+            //console.log(idk);
+
+            const splashID = landingpage.featured_media;
+
+            images.forEach(billede => {
+                if (billede.id == splashID) {
+                    //console.log(billede);
+
+
+                    splashImage = billede.guid.rendered;
+                    splash.style.backgroundImage = `url(${billede.guid.rendered})`;
+
+                    console.log(`${billede.guid.rendered}`);
+                }
+            });
+        }
+
+    </script>
 </body>
 
 </html>
