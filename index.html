@@ -14,15 +14,41 @@
         }
 
         h1 {
+            font-family: gingerpro-bold;
             margin: 0;
             font-size: 3rem;
             color: #fff;
         }
 
+        h2 {
+            font-family: gingerpro-bold;
+        }
+
+        @font-face {
+            font-family: 'gingerpro';
+            src: url('fonts/f37gingerpro-regular-webfont.woff') format('woff');
+            src: url('fonts/f37gingerpro-regular-webfont.woff2') format('woff2');
+        }
+
+        @font-face {
+            font-family: 'gingerpro-bold';
+            src: url('fonts/f37gingerpro-bold-webfont.woff') format('woff');
+            src: url('fonts/f37gingerpro-bold-webfont.woff2') format('woff2');
+        }
+
+        @font-face {
+            font-family: 'gingerpro-light';
+            src: url('fonts/f37gingerpro-light-webfont.woff') format('woff');
+            src: url('f37gingerpro-light-webfont.woff2') format('woff2');
+        }
+
+
+
         body {
             margin: 0;
-            font-family: sans-serif;
+            font-family: gingerpro;
         }
+
 
         img {
             width: 100%;
@@ -114,7 +140,86 @@
         .footer_container {
             display: flex;
             justify-content: space-between;
-            align-items: center
+            align-items: center;
+        }
+
+
+        nav {
+            width: 100vw;
+            height: 100px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 0 30px;
+            position: fixed;
+        }
+
+        nav img {
+            width: 60px;
+        }
+
+        .wrapper-menu {
+            width: 35px;
+            height: 35px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: transform 330ms ease-out;
+        }
+
+        .wrapper-menu.open {
+            transform: rotate(-45deg);
+        }
+
+        .line-menu {
+            background-color: #FF6138;
+            border-radius: 5px;
+            width: 100%;
+            height: 6px;
+        }
+
+        .line-menu.half {
+            width: 50%;
+        }
+
+        .line-menu.start {
+            transition: transform 330ms cubic-bezier(0.54, -0.81, 0.57, 0.57);
+            transform-origin: right;
+        }
+
+        .open .line-menu.start {
+            transform: rotate(-90deg) translateX(3px);
+        }
+
+        .line-menu.end {
+            align-self: flex-end;
+            transition: transform 330ms cubic-bezier(0.54, -0.81, 0.57, 0.57);
+            transform-origin: left;
+        }
+
+        .open .line-menu.end {
+            transform: rotate(-90deg) translateX(-3px);
+        }
+
+        .nav_baggrund {
+            animation-name: nav_baggrund_kf;
+            animation-duration: .3s;
+            animation-iteration-count: 1;
+            animation-timing-function: ease-out;
+            animation-fill-mode: both;
+        }
+
+        @keyframes nav_baggrund_kf {
+            0% {
+                background-color: none;
+            }
+
+            100% {
+                background-color: rgb(255, 255, 255);
+            }
         }
 
     </style>
@@ -124,11 +229,15 @@
 
     <header>
         <nav>
-            <!--
             <a href="index.html">
-                <img src="" alt="21-5 logo">
+                <img src="billeder/logo2.png" alt="21-5 logo" class="idk">
             </a>
--->
+
+            <div class="wrapper-menu">
+                <div class="line-menu half start"></div>
+                <div class="line-menu"></div>
+                <div class="line-menu half end"></div>
+            </div>
 
         </nav>
     </header>
@@ -214,6 +323,25 @@
         function visLanding() {
             const splash = document.querySelector("#splash");
             const splashText = document.querySelector("h1");
+
+
+
+            let wrapperMenu = document.querySelector('.wrapper-menu');
+            wrapperMenu.addEventListener('click', function() {
+                wrapperMenu.classList.toggle('open');
+            });
+
+            setInterval(function() {
+                console.log(window.pageYOffset);
+                if (window.pageYOffset > 780) {
+                    document.querySelector("nav").classList.add("nav_baggrund");
+                }
+
+                if (window.pageYOffset < 780) {
+                    document.querySelector("nav").classList.remove("nav_baggrund");
+                }
+            }, 500);
+
 
             let content = landingpage.content.rendered.split(`<hr class="wp-block-separator"/>`);
             console.log(content);
