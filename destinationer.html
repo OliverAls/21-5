@@ -17,11 +17,18 @@
             font-family: gingerpro-bold;
             margin: 0;
             font-size: 3rem;
-            color: #000;
+
         }
 
         h2 {
             font-family: gingerpro-bold;
+        }
+
+        h1,
+        h2,
+        h3,
+        p {
+            color: #34170F;
         }
 
         @font-face {
@@ -43,15 +50,18 @@
         }
 
 
-
         body {
             margin: 0;
             font-family: gingerpro;
         }
 
-
         img {
             width: 100%;
+        }
+
+        section {
+            padding: 0 40px;
+            margin-bottom: 60px;
         }
 
         #intro {
@@ -61,12 +71,6 @@
             justify-content: center;
             margin-top: 150px;
             margin-bottom: 30px;
-        }
-
-        #intro p,
-        #intro h2 {
-            padding: 0 40px;
-            max-width: 1000px;
         }
 
         footer {
@@ -90,6 +94,7 @@
         footer h3 {
             margin: 0;
             margin-top: 10px;
+            font-family: gingerpro-bold;
         }
 
         .footer_logo {
@@ -128,6 +133,30 @@
         nav img {
             width: 60px;
         }
+
+        #destinationer-menu {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #destinationer-menu h1 {
+            margin: 0;
+            line-height: 0.9;
+        }
+
+        #dropdown {
+            height: 25px;
+            width: 25px;
+            margin-left: 20px;
+            border: 3px solid #FF6138;
+            text-align: center;
+            color: #FF6138;
+            line-height: 1.1;
+            cursor: pointer;
+        }
+
+        #dropdown p {}
 
         .wrapper-menu {
             width: 35px;
@@ -194,7 +223,11 @@
     </header>
 
     <section id="intro">
-        <h1></h1>
+        <div id="destinationer-menu">
+            <h1></h1>
+            <div id="dropdown">v</div>
+        </div>
+
         <div id="intro-text"></div>
     </section>
 
@@ -275,7 +308,7 @@
                 wrapperMenu.classList.toggle('open');
             });
 
-            introSec.innerHTML = destinationer.title.rendered;
+            introSec.textContent = destinationer.title.rendered;
 
             let content = destinationer.content.rendered.split(`<hr class="wp-block-separator"/>`);
             console.log(content);
