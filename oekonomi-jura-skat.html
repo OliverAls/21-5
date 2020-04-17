@@ -27,7 +27,9 @@
         h1,
         h2,
         h3,
-        p {
+        p,
+        ul,
+        li {
             color: #34170F;
         }
 
@@ -143,21 +145,8 @@
         #destinationer-menu h1 {
             margin: 0;
             line-height: 0.9;
-            font-size: 1.8rem;
+            font-size: 2.2rem;
         }
-
-        #dropdown {
-            height: 25px;
-            width: 25px;
-            margin-left: 20px;
-            border: 3px solid #FF6138;
-            text-align: center;
-            color: #FF6138;
-            line-height: 1.1;
-            cursor: pointer;
-        }
-
-        #dropdown p {}
 
         #intro-text {
             margin-top: 50px;
@@ -230,25 +219,18 @@
     <section id="intro">
         <div id="destinationer-menu">
             <h1></h1>
-            <div id="dropdown">v</div>
         </div>
 
         <div id="intro-text"></div>
     </section>
 
-    <section id="hvad">
+    <section id="skat">
     </section>
 
-    <section id="hvorfor">
+    <section id="investering">
     </section>
 
-    <section id="hvem">
-    </section>
-
-    <section id="benyttelse">
-    </section>
-
-    <section id="faellesskab">
+    <section id="penge">
     </section>
 
 
@@ -278,7 +260,7 @@
     <script>
         document.addEventListener("DOMContentLoaded", start);
 
-        const pageEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/pages/42?_embed";
+        const pageEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/pages/56?_embed";
         const imageEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/media";
         let destinationer = [];
         let images = [];
@@ -301,7 +283,7 @@
 
 
         function visDestinationer() {
-            let introSec = document.querySelector("h1");
+            let overskrift = document.querySelector("h1");
 
 
             let wrapperMenu = document.querySelector('.wrapper-menu');
@@ -309,17 +291,15 @@
                 wrapperMenu.classList.toggle('open');
             });
 
-            introSec.textContent = destinationer.title.rendered;
+            overskrift.textContent = destinationer.title.rendered;
 
             let content = destinationer.content.rendered.split(`<hr class="wp-block-separator"/>`);
             console.log(content);
             content.forEach(afsnit => {
                 document.querySelector("#intro-text").innerHTML = content[0];
-                document.querySelector("#hvad").innerHTML = content[1];
-                document.querySelector("#hvorfor").innerHTML = content[2];
-                document.querySelector("#hvem").innerHTML = content[3];
-                document.querySelector("#benyttelse").innerHTML = content[4];
-                document.querySelector("#faellesskab").innerHTML = content[5];
+                document.querySelector("#skat").innerHTML = content[1];
+                document.querySelector("#investering").innerHTML = content[2];
+                document.querySelector("#penge").innerHTML = content[3];
             });
         }
 

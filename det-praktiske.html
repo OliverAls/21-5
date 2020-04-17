@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Om konceptet</title>
+    <title>Det praktiske</title>
     <link rel="stylesheet" href="">
 
 
@@ -22,6 +22,8 @@
 
         h2 {
             font-family: gingerpro-bold;
+            font-size: 2.2rem;
+            margin: 10px 0;
         }
 
         h1,
@@ -146,6 +148,17 @@
             font-size: 1.8rem;
         }
 
+        #praktisk {
+            margin-top: 50px;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        #hvor h2 {
+            margin: 10px 0;
+        }
+
         #dropdown {
             height: 25px;
             width: 25px;
@@ -158,10 +171,6 @@
         }
 
         #dropdown p {}
-
-        #intro-text {
-            margin-top: 50px;
-        }
 
         .wrapper-menu {
             width: 35px;
@@ -229,26 +238,35 @@
 
     <section id="intro">
         <div id="destinationer-menu">
-            <h1></h1>
+            <h1>Om konceptet</h1>
             <div id="dropdown">v</div>
         </div>
 
-        <div id="intro-text"></div>
+        <h2 id="praktisk"></h2>
     </section>
 
-    <section id="hvad">
+    <section id="hvor">
     </section>
 
-    <section id="hvorfor">
+    <section id="byt">
     </section>
 
-    <section id="hvem">
+    <section id="oploesning">
     </section>
 
-    <section id="benyttelse">
+    <section id="bookingsystem">
     </section>
 
-    <section id="faellesskab">
+    <section id="uger">
+    </section>
+
+    <section id="salg">
+    </section>
+
+    <section id="udgifter">
+    </section>
+
+    <section id="binding">
     </section>
 
 
@@ -273,12 +291,10 @@
     </footer>
 
 
-
-
     <script>
         document.addEventListener("DOMContentLoaded", start);
 
-        const pageEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/pages/42?_embed";
+        const pageEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/pages/46?_embed";
         const imageEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/media";
         let destinationer = [];
         let images = [];
@@ -301,7 +317,7 @@
 
 
         function visDestinationer() {
-            let introSec = document.querySelector("h1");
+            let introSec = document.querySelector("#praktisk");
 
 
             let wrapperMenu = document.querySelector('.wrapper-menu');
@@ -314,12 +330,14 @@
             let content = destinationer.content.rendered.split(`<hr class="wp-block-separator"/>`);
             console.log(content);
             content.forEach(afsnit => {
-                document.querySelector("#intro-text").innerHTML = content[0];
-                document.querySelector("#hvad").innerHTML = content[1];
-                document.querySelector("#hvorfor").innerHTML = content[2];
-                document.querySelector("#hvem").innerHTML = content[3];
-                document.querySelector("#benyttelse").innerHTML = content[4];
-                document.querySelector("#faellesskab").innerHTML = content[5];
+                document.querySelector("#hvor").innerHTML = content[0];
+                document.querySelector("#byt").innerHTML = content[1];
+                document.querySelector("#oploesning").innerHTML = content[2];
+                document.querySelector("#bookingsystem").innerHTML = content[3];
+                document.querySelector("#uger").innerHTML = content[4];
+                document.querySelector("#salg").innerHTML = content[5];
+                document.querySelector("#udgifter").innerHTML = content[6];
+                document.querySelector("#binding").innerHTML = content[7];
             });
         }
 

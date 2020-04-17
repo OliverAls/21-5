@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Om konceptet</title>
+    <title>Det siger vores 21-5 familier</title>
     <link rel="stylesheet" href="">
 
 
@@ -22,6 +22,8 @@
 
         h2 {
             font-family: gingerpro-bold;
+            font-size: 2.2rem;
+            margin: 10px 0;
         }
 
         h1,
@@ -146,6 +148,13 @@
             font-size: 1.8rem;
         }
 
+        #vores-familier {
+            margin-top: 50px;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
         #dropdown {
             height: 25px;
             width: 25px;
@@ -159,8 +168,20 @@
 
         #dropdown p {}
 
-        #intro-text {
-            margin-top: 50px;
+        article {
+            margin-top: 70px;
+        }
+
+        article h2 {
+            margin: 0;
+        }
+
+        #billede {
+            width: 400px;
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
 
         .wrapper-menu {
@@ -229,26 +250,24 @@
 
     <section id="intro">
         <div id="destinationer-menu">
-            <h1></h1>
+            <h1>Om konceptet</h1>
             <div id="dropdown">v</div>
         </div>
 
-        <div id="intro-text"></div>
+        <h2 id="vores-familier">Det siger vores 21-5 familier</h2>
     </section>
 
-    <section id="hvad">
-    </section>
 
-    <section id="hvorfor">
-    </section>
 
-    <section id="hvem">
-    </section>
-
-    <section id="benyttelse">
-    </section>
-
-    <section id="faellesskab">
+    <section id="container">
+        <template>
+            <article id="udtalelse">
+                <h2></h2>
+                <img src="" alt="">
+                <div id="billede"></div>
+                <p></p>
+            </article>
+        </template>
     </section>
 
 
@@ -273,15 +292,13 @@
     </footer>
 
 
-
-
     <script>
         document.addEventListener("DOMContentLoaded", start);
 
-        const pageEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/pages/42?_embed";
+        const pageEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/udtalelse/?per_page=100";
         const imageEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/media";
-        let destinationer = [];
         let images = [];
+        let udtalelser = [];
 
 
         function start() {
@@ -290,37 +307,43 @@
 
         async function loadData() {
             const pageResponse = await fetch(pageEndpoint);
-            destinationer = await pageResponse.json();
-            console.log(destinationer);
+            udtalelser = await pageResponse.json();
+            console.log(udtalelser);
 
 
             const imageResponse = await fetch(imageEndpoint);
             images = await imageResponse.json();
-            visDestinationer();
+            visUdtalelser();
         }
 
 
-        function visDestinationer() {
-            let introSec = document.querySelector("h1");
-
-
+        function visUdtalelser() {
             let wrapperMenu = document.querySelector('.wrapper-menu');
             wrapperMenu.addEventListener('click', function() {
                 wrapperMenu.classList.toggle('open');
             });
 
-            introSec.textContent = destinationer.title.rendered;
 
-            let content = destinationer.content.rendered.split(`<hr class="wp-block-separator"/>`);
-            console.log(content);
-            content.forEach(afsnit => {
-                document.querySelector("#intro-text").innerHTML = content[0];
-                document.querySelector("#hvad").innerHTML = content[1];
-                document.querySelector("#hvorfor").innerHTML = content[2];
-                document.querySelector("#hvem").innerHTML = content[3];
-                document.querySelector("#benyttelse").innerHTML = content[4];
-                document.querySelector("#faellesskab").innerHTML = content[5];
+            let container = document.querySelector("#container");
+            let udtalelseTemplate = document.querySelector("template");
+            container.innerHTML = "";
+
+            udtalelser.forEach(element => {
+                //console.log(element);
+                let klon = udtalelseTemplate.cloneNode(true).content;
+
+                klon.querySelector("h2").textContent = element.navne;
+                klon.querySelector("#billede").style.backgroundImage = `url(${element.billede.guid})`;
+
+                //klon.querySelector("img").src = `${element.billede.guid}`;
+
+                klon.querySelector("p").textContent = element.udtalelse;
+
+                container.appendChild(klon);
+
             });
+
+
         }
 
     </script>
