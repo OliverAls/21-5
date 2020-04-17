@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Det siger vores 21-5 familier</title>
+    <title>Bliv medejer</title>
     <link rel="stylesheet" href="">
 
 
@@ -22,14 +22,14 @@
 
         h2 {
             font-family: gingerpro-bold;
-            font-size: 2.2rem;
-            margin: 10px 0;
         }
 
         h1,
         h2,
         h3,
-        p {
+        p,
+        ul,
+        li {
             color: #34170F;
         }
 
@@ -145,47 +145,11 @@
         #destinationer-menu h1 {
             margin: 0;
             line-height: 0.9;
-            font-size: 1.8rem;
+            font-size: 2.2rem;
         }
 
-        #vores-familier {
+        #intro-text {
             margin-top: 50px;
-            font-size: 3rem;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        #dropdown {
-            height: 25px;
-            width: 25px;
-            margin-left: 20px;
-            border: 3px solid #FF6138;
-            text-align: center;
-            color: #FF6138;
-            line-height: 1.1;
-            cursor: pointer;
-        }
-
-        #dropdown p {}
-
-        article {
-            margin-bottom: 70px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        article h2 {
-            margin: 5px;
-            line-height: 1.2;
-        }
-
-        #billede {
-            width: 400px;
-            height: 250px;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
         }
 
         .wrapper-menu {
@@ -254,26 +218,11 @@
 
     <section id="intro">
         <div id="destinationer-menu">
-            <h1>Om konceptet</h1>
-            <div id="dropdown">v</div>
+            <h1></h1>
         </div>
 
-        <h2 id="vores-familier">Det siger vores 21-5 familier</h2>
+        <div id="intro-text"></div>
     </section>
-
-
-
-    <section id="container">
-        <template>
-            <article id="udtalelse">
-                <h2></h2>
-                <img src="" alt="">
-                <div id="billede"></div>
-                <p></p>
-            </article>
-        </template>
-    </section>
-
 
     <footer>
         <img src="billeder/logo.svg" alt="" class="footer_logo">
@@ -296,13 +245,15 @@
     </footer>
 
 
+
+
     <script>
         document.addEventListener("DOMContentLoaded", start);
 
-        const pageEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/udtalelse/?per_page=100";
+        const pageEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/pages/281?_embed";
         const imageEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/media";
+        let blivMedejer = [];
         let images = [];
-        let udtalelser = [];
 
 
         function start() {
@@ -311,43 +262,32 @@
 
         async function loadData() {
             const pageResponse = await fetch(pageEndpoint);
-            udtalelser = await pageResponse.json();
-            console.log(udtalelser);
+            blivMedejer = await pageResponse.json();
+            console.log(blivMedejer);
 
 
             const imageResponse = await fetch(imageEndpoint);
             images = await imageResponse.json();
-            visUdtalelser();
+            visBlivMedejer();
         }
 
 
-        function visUdtalelser() {
+        function visBlivMedejer() {
+            let overskrift = document.querySelector("h1");
+
+
             let wrapperMenu = document.querySelector('.wrapper-menu');
             wrapperMenu.addEventListener('click', function() {
                 wrapperMenu.classList.toggle('open');
             });
 
+            overskrift.textContent = blivMedejer.title.rendered;
 
-            let container = document.querySelector("#container");
-            let udtalelseTemplate = document.querySelector("template");
-            container.innerHTML = "";
-
-            udtalelser.forEach(element => {
-                //console.log(element);
-                let klon = udtalelseTemplate.cloneNode(true).content;
-
-                klon.querySelector("h2").textContent = element.navne;
-                klon.querySelector("#billede").style.backgroundImage = `url(${element.billede.guid})`;
-
-                //klon.querySelector("img").src = `${element.billede.guid}`;
-
-                klon.querySelector("p").textContent = element.udtalelse;
-
-                container.appendChild(klon);
-
+            let content = blivMedejer.content.rendered.split(`<hr class="wp-block-separator"/>`);
+            console.log(content);
+            content.forEach(afsnit => {
+                document.querySelector("#intro-text").innerHTML = content[0];
             });
-
-
         }
 
     </script>
