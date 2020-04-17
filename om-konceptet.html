@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Destinationer</title>
+    <title>Om konceptet</title>
     <link rel="stylesheet" href="">
 
 
@@ -231,22 +231,19 @@
         <div id="intro-text"></div>
     </section>
 
-    <section id="udvaelgelse">
+    <section id="hvad">
     </section>
 
-    <section id="indstandsaettelse">
+    <section id="hvorfor">
     </section>
 
-    <section id="skrot-slot">
+    <section id="hvem">
     </section>
 
-    <section id="indretning">
-        <div id="indretning-text1"></div>
-        <div id="indretning-text2"></div>
-        <div id="indretning-text3"></div>
+    <section id="benyttelse">
     </section>
 
-    <section id="skaber-hjem">
+    <section id="faellesskab">
     </section>
 
 
@@ -276,7 +273,7 @@
     <script>
         document.addEventListener("DOMContentLoaded", start);
 
-        const pageEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/pages/35?_embed";
+        const pageEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/pages/42?_embed";
         const imageEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/media";
         let destinationer = [];
         let images = [];
@@ -302,7 +299,6 @@
             let introSec = document.querySelector("h1");
 
 
-
             let wrapperMenu = document.querySelector('.wrapper-menu');
             wrapperMenu.addEventListener('click', function() {
                 wrapperMenu.classList.toggle('open');
@@ -314,13 +310,11 @@
             console.log(content);
             content.forEach(afsnit => {
                 document.querySelector("#intro-text").innerHTML = content[0];
-                document.querySelector("#udvaelgelse").innerHTML = content[1];
-                document.querySelector("#indstandsaettelse").innerHTML = content[2];
-                document.querySelector("#skrot-slot").innerHTML = content[3];
-                document.querySelector("#indretning-text1").innerHTML = content[4];
-                document.querySelector("#indretning-text2").innerHTML = content[5];
-                document.querySelector("#indretning-text3").innerHTML = content[6];
-                document.querySelector("#skaber-hjem").innerHTML = content[7];
+                document.querySelector("#hvad").innerHTML = content[1];
+                document.querySelector("#hvorfor").innerHTML = content[2];
+                document.querySelector("#hvem").innerHTML = content[3];
+                document.querySelector("#benyttelse").innerHTML = content[4];
+                document.querySelector("#faellesskab").innerHTML = content[5];
             });
         }
 
