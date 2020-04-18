@@ -116,7 +116,6 @@
             align-items: center;
         }
 
-
         nav {
             width: 100vw;
             height: 100px;
@@ -130,23 +129,27 @@
             position: fixed;
             top: 0;
             background-color: #fff;
-            z-index: 100;
+            z-index: 1000;
         }
 
         nav img {
             width: 60px;
         }
 
-        #destinationer-menu {
+        #konceptet-menu {
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        #destinationer-menu h1 {
+        #konceptet-menu h1 {
             margin: 0;
             line-height: 0.9;
             font-size: 1.8rem;
+        }
+
+        #konceptet-menu a {
+            text-decoration: none;
         }
 
         #praktisk {
@@ -169,9 +172,95 @@
             color: #FF6138;
             line-height: 1.1;
             cursor: pointer;
+            background-image: url(billeder/arrow.svg);
+            background-size: 10px;
+            background-repeat: no-repeat;
+            background-position: 40%;
         }
 
         #dropdown p {}
+
+        .menu-container {
+            width: 100%;
+            margin-top: 20px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #fff;
+            z-index: 0;
+
+        }
+
+        #menu {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: -1;
+        }
+
+        .menu-container a {
+            text-decoration: none;
+            color: #34170F;
+            font-family: gingerpro-bold;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            transition: .3s;
+            align-self: flex-start;
+            margin-left: -6px;
+        }
+
+        .menu-container a:hover {
+            text-underline-position: below;
+            color: #FF6138;
+        }
+
+        .hide {
+            display: none;
+        }
+
+
+        .vis-menu {
+            animation-name: vis_menu_kf;
+            animation-duration: .5s;
+            animation-fill-mode: forwards;
+            animation-iteration-count: 1;
+            animation-timing-function: ease-out;
+        }
+
+        .rotate-arrow {
+            animation-name: rotate_arrow_kf;
+            animation-duration: .5s;
+            animation-fill-mode: forwards;
+            animation-direction: alternate;
+            animation-iteration-count: 1;
+            animation-timing-function: ease-out;
+        }
+
+        @keyframes vis_menu_kf {
+            0% {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+                z-index: 1;
+            }
+        }
+
+        @keyframes rotate_arrow_kf {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(180deg);
+            }
+        }
 
     </style>
 </head>
@@ -201,10 +290,23 @@
         </div>
     </section>
 
+
+
+
     <section id="intro">
-        <div id="destinationer-menu">
-            <h1>Om konceptet</h1>
-            <div id="dropdown">v</div>
+        <div id="konceptet-menu">
+            <a href="om-konceptet.html">
+                <h1>Om konceptet</h1>
+            </a>
+            <div id="dropdown"></div>
+        </div>
+
+        <div class="menu-container hide">
+            <div id="menu">
+                <template id="menu-template">
+                    <a href=""></a>
+                </template>
+            </div>
         </div>
 
         <h2 id="praktisk"></h2>
@@ -264,6 +366,8 @@
         let destinationer = [];
         let images = [];
 
+        let container = document.querySelector("#menu");
+        let menupunktTemplate = document.querySelector("#menu-template");
 
         function start() {
             loadData();
@@ -277,11 +381,11 @@
 
             const imageResponse = await fetch(imageEndpoint);
             images = await imageResponse.json();
-            visDestinationer();
+            visDetPraktiske();
         }
 
 
-        function visDestinationer() {
+        function visDetPraktiske() {
             let introSec = document.querySelector("#praktisk");
 
             introSec.textContent = destinationer.title.rendered;
@@ -298,6 +402,35 @@
                 document.querySelector("#udgifter").innerHTML = content[6];
                 document.querySelector("#binding").innerHTML = content[7];
             });
+
+
+            let dropdown = document.querySelector("#dropdown");
+            dropdown.addEventListener("click", visDropdown);
+
+            container.innerHTML = "";
+            allPages.forEach(page => {
+
+                if (page.parent == 42) {
+                    let klon = menupunktTemplate.cloneNode(true).content;
+                    klon.querySelector("a").href = page.slug + ".html";
+                    klon.querySelector("a").textContent = page.title.rendered;
+                    container.appendChild(klon);
+                }
+            });
+        }
+
+        function visDropdown() {
+            document.querySelector(".menu-container").addEventListener("animationend", menuAnimationDone);
+
+            document.querySelector(".menu-container").classList.add("vis-menu");
+            document.querySelector(".menu-container").classList.toggle("hide");
+
+            document.querySelector("#dropdown").classList.toggle("rotate-arrow");
+            document.querySelector("#dropdown").style.animationDirection = "alternate";
+        }
+
+        function menuAnimationDone() {
+            document.querySelector(".menu-container").classList.remove("vis-menu");
         }
 
     </script>
