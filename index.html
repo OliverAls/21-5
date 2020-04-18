@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>21-5</title>
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="burgermenu.css">
 
 
     <style>
@@ -167,54 +167,23 @@
 
             padding: 0 30px;
             position: fixed;
+            z-index: 100;
         }
 
         nav img {
             width: 60px;
         }
 
-        .wrapper-menu {
-            width: 35px;
-            height: 35px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            cursor: pointer;
-            transition: transform 330ms ease-out;
+        .hide {
+            display: none;
         }
 
-        .wrapper-menu.open {
-            transform: rotate(-45deg);
-        }
-
-        .line-menu {
-            background-color: #FF6138;
-            border-radius: 5px;
-            width: 100%;
-            height: 6px;
-        }
-
-        .line-menu.half {
-            width: 50%;
-        }
-
-        .line-menu.start {
-            transition: transform 330ms cubic-bezier(0.54, -0.81, 0.57, 0.57);
-            transform-origin: right;
-        }
-
-        .open .line-menu.start {
-            transform: rotate(-90deg) translateX(3px);
-        }
-
-        .line-menu.end {
-            align-self: flex-end;
-            transition: transform 330ms cubic-bezier(0.54, -0.81, 0.57, 0.57);
-            transform-origin: left;
-        }
-
-        .open .line-menu.end {
-            transform: rotate(-90deg) translateX(-3px);
+        .vis-burgermenu {
+            animation-name: vis_burgermenu_kf;
+            animation-duration: .7s;
+            animation-iteration-count: 1;
+            animation-timing-function: ease-out;
+            animation-fill-mode: forwards;
         }
 
         .nav_baggrund {
@@ -232,6 +201,17 @@
 
             100% {
                 background-color: rgb(255, 255, 255);
+            }
+        }
+
+        @keyframes vis_burgermenu_kf {
+            0% {
+                opacity: 0%;
+            }
+
+
+            100% {
+                opacity: 100%;
             }
         }
 
@@ -254,6 +234,14 @@
 
         </nav>
     </header>
+
+    <section class="burgermenu hide vis-burgermenu">
+        <div id="link-container">
+            <template id="menu-link">
+                <a href="#"></a>
+            </template>
+        </div>
+    </section>
 
     <section id="splash">
 
@@ -308,9 +296,11 @@
         const pageEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/pages/13?_embed";
         const imageEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/media?per_page=100";
         const houseEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/husstoerrelse";
+        const allPagesEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/pages/?per_page=100";
         let landingpage = [];
         let images = [];
         let houseSizes = [];
+        let allPages = [];
 
 
         function start() {
@@ -329,8 +319,13 @@
 
             const houseResponse = await fetch(houseEndpoint);
             houseSizes = await houseResponse.json();
+
+            const allPagesResponse = await fetch(allPagesEndpoint);
+            allPages = await allPagesResponse.json();
             visLanding();
         }
+
+
 
 
         function visLanding() {
@@ -339,10 +334,34 @@
 
 
 
-            let wrapperMenu = document.querySelector('.wrapper-menu');
-            wrapperMenu.addEventListener('click', function() {
-                wrapperMenu.classList.toggle('open');
+            let menuContainer = document.querySelector("#link-container");
+            let menuTemplate = document.querySelector("#menu-link");
+            menuContainer.innerHTML = "";
+            allPages.forEach(page => {
+                if (page.parent == 0) {
+
+                    let menuKlon = menuTemplate.cloneNode(true).content;
+                    menuKlon.querySelector("a").href = page.slug + ".html";
+                    menuKlon.querySelector("a").textContent = page.title.rendered;
+
+                    menuContainer.appendChild(menuKlon);
+
+
+                    //burgermenu
+                    let wrapperMenu = document.querySelector('.wrapper-menu');
+                    wrapperMenu.addEventListener('click', function() {
+                        wrapperMenu.classList.toggle('open');
+
+                        document.querySelector(".burgermenu").classList.toggle("hide");
+                        //document.querySelector(".burgermenu").classList.toggle("vis-burgermenu");
+                        console.log(page.title.rendered);
+                    });
+
+                }
             });
+
+
+
 
             setInterval(function() {
                 //console.log(window.pageYOffset);
@@ -357,7 +376,7 @@
 
 
             let content = landingpage.content.rendered.split(`<hr class="wp-block-separator"/>`);
-            console.log(content);
+            //console.log(content);
             content.forEach(afsnit => {
                 document.querySelector("#intro").innerHTML = content[0];
                 document.querySelector("#kaffe").innerHTML = content[1];
@@ -366,7 +385,7 @@
             splashText.textContent = landingpage.title.rendered;
             images.forEach(billede => {
                 const splashID = landingpage.featured_media;
-                console.log(splashID);
+                //console.log(splashID);
                 if (billede.id == splashID) {
                     splashImage = billede.guid.rendered;
                     splash.style.backgroundImage = `url(${billede.guid.rendered})`;
@@ -380,7 +399,7 @@
             //console.log(houseSizes);
 
             houseSizes.forEach(size => {
-                console.log(size);
+                //console.log(size);
                 let klon = husTemplate.cloneNode(true).content;
 
                 klon.querySelector("h2").textContent = size.navn;
