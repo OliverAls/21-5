@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>billedeserie</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+        }
+
+        img {
+            width: 100%;
+        }
+
+        main {
+            width: 50vw;
+        }
+
+        .carousel {
+            width: 100%;
+            height: 100%;
+        }
+
+        .the-container {
+            display: flex;
+            overflow-x: scroll;
+            scroll-snap-type: x mandatory;
+        }
+
+        .the-container section {
+            min-width: 100%;
+            scroll-snap-align: start;
+        }
+
+        .carousel-inner {
+            display: flex;
+        }
+
+        .bwd,
+        .fwd {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .bwd p,
+        .fwd p {
+            z-index: 10;
+            position: absolute;
+            color: #fff;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .fwd p {
+            margin-left: -18px;
+        }
+
+        .legend-pic-container section {
+            display: inline-block;
+            height: 5vh;
+        }
+
+        .legend-pic-container img {
+            height: 100%;
+            width: auto;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <template>
+        <section>
+            <img class="caro-imgs" src="" alt="">
+        </section>
+    </template>
+
+    <main>
+        <div class="carousel">
+            <div class="carousel-inner">
+                <div class="bwd">
+                    <p>&lt;</p>
+                </div>
+
+                <div class="the-container"></div>
+
+
+                <div class="fwd">
+                    <p>&gt;</p>
+                </div>
+            </div>
+
+            <div class="legend-pic-container"></div>
+
+        </div>
+
+    </main>
+
+
+
+
+
+    <script>
+        "use strict"
+        document.addEventListener("DOMContentLoaded", start);
+        const endpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/destination/316";
+        let billedeserie = [];
+        let numberOfPicsInCarousel;
+        let caroCurrentNum = 0;
+
+        function start() {
+            loadData()
+            document.querySelector(".fwd").addEventListener("click", fwd);
+            document.querySelector(".bwd").addEventListener("click", bwd);
+        }
+
+        async function loadData() {
+            const response = await fetch(endpoint);
+            billedeserie = await response.json();
+            console.log(billedeserie);
+
+            buildCarousel();
+        }
+
+        function buildCarousel() {
+            numberOfPicsInCarousel = billedeserie.billeder.length;
+            billedeserie.billeder.forEach((billede, index) => {
+                const theClone = document.querySelector("template").cloneNode(true).content;
+                const secondClone = document.querySelector("template").cloneNode(true).content;
+
+                theClone.querySelector("img").src = billede.guid;
+                secondClone.querySelector("img").src = billede.guid;
+
+
+                document.querySelector(".the-container").appendChild(theClone);
+                document.querySelector(".legend-pic-container").appendChild(secondClone);
+            });
+
+
+            document.querySelector(".the-container").addEventListener("scroll", scrollFunction);
+        }
+
+        function scrollFunction() {
+            //console.log("jeg scrollede");
+            caroCurrentNum = Math.round(document.querySelector(".the-container").scrollLeft / document.querySelector(".caro-imgs").width);
+            console.log(caroCurrentNum);
+        }
+
+
+        function fwd() {
+            caroCurrentNum++;
+
+            navigate();
+        }
+
+        function bwd() {
+            caroCurrentNum--;
+            navigate();
+        }
+
+        function navigate() {
+            document.querySelector(".the-container").scrollTo({
+                left: caroCurrentNum * document.querySelector(".caro-imgs").width,
+                behavior: "smooth"
+            });
+        }
+
+    </script>
+</body>
+
+</html>
