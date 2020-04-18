@@ -41,6 +41,11 @@
     justify-content: space-between;
     cursor: pointer;
     transition: transform 330ms ease-out;
+
+    z-index: 200;
+    position: fixed;
+    right: 30px;
+    top: 30px;
 }
 
 .wrapper-menu.open {
@@ -80,6 +85,37 @@
 .hide {
     display: none;
 }
+
+
+
+@media screen and (min-width: 1200px) {
+    #link-container {
+        width: 30vw;
+        height: 100%;
+        padding: 40px;
+        right: 0;
+        position: fixed;
+        background-color: #fff;
+    }
+
+
+    .burgermenu {
+        background-color: rgba(0, 0, 0, 0.35);
+        padding-top: 0;
+        z-index: 100;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
 
 
 /*********ANIMATIONER*********/
