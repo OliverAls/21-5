@@ -306,7 +306,7 @@
         document.addEventListener("DOMContentLoaded", start);
 
         const pageEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/pages/13?_embed";
-        const imageEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/media";
+        const imageEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/media?per_page=100";
         const houseEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/husstoerrelse";
         let landingpage = [];
         let images = [];
@@ -366,6 +366,7 @@
             splashText.textContent = landingpage.title.rendered;
             images.forEach(billede => {
                 const splashID = landingpage.featured_media;
+                console.log(splashID);
                 if (billede.id == splashID) {
                     splashImage = billede.guid.rendered;
                     splash.style.backgroundImage = `url(${billede.guid.rendered})`;
