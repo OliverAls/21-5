@@ -8,9 +8,10 @@
     padding-top: 200px;
     align-items: center;
     background-color: #fff;
-    z-index: 0;
+    z-index: 1;
     position: fixed;
     overflow: hidden;
+    top: 0;
 }
 
 #link-container {
@@ -74,4 +75,30 @@
 
 .open .line-menu.end {
     transform: rotate(-90deg) translateX(-3px);
+}
+
+.hide {
+    display: none;
+}
+
+
+/*********ANIMATIONER*********/
+.vis-burgermenu {
+    animation-name: vis_burgermenu_kf;
+    animation-duration: .7s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+}
+
+
+@keyframes vis_burgermenu_kf {
+    0% {
+        opacity: 0%;
+    }
+
+
+    100% {
+        opacity: 100%;
+    }
 }
