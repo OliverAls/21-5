@@ -1,6 +1,6 @@
 "use strict"
 //document.addEventListener("DOMContentLoaded", start);
-const endpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/destination/316";
+const endpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/indretning/509";
 let billedeserie = [];
 let numberOfPicsInCarousel;
 let caroCurrentNum = 0;
@@ -18,11 +18,7 @@ async function loadData() {
     const response = await fetch(endpoint);
     billedeserie = await response.json();
     console.log(billedeserie);
-
-
-    console.log("idk");
     buildCarousel();
-
 }
 
 function buildCarousel() {
@@ -37,16 +33,9 @@ function buildCarousel() {
 
 
         document.querySelector(".the-container").appendChild(theClone);
-        document.querySelector(".legend-pic-container").appendChild(secondClone);
     });
 
-
-    document.querySelector(".legend-pic-container section").classList.add("legend-border");
     document.querySelector(".the-container").addEventListener("scroll", scrollFunction);
-
-    document.querySelectorAll(".legend-pic-container section").forEach(section => {
-        section.addEventListener("click", legendClick);
-    });
 }
 
 function scrollFunction() {
@@ -56,14 +45,7 @@ function scrollFunction() {
     document.querySelectorAll(".legend-pic-container section").forEach(section => {
         section.classList.remove("legend-border");
     });
-    document.querySelector(`.legend-pic-container section:nth-child(${caroCurrentNum + 1})`).classList.add("legend-border");
     setBtns();
-}
-
-function legendClick(evt) {
-    //console.log(evt.currentTarget);
-    caroCurrentNum = evt.currentTarget.dataset.myIndex;
-    navigate();
 }
 
 
@@ -99,6 +81,7 @@ function setBtns() {
         document.querySelector(".fwd").style.cursor = "pointer";
     } else {
         document.querySelector(".fwd").style.opacity = ".5";
+        document.querySelector(".fwd").style.color = "#333";
         document.querySelector(".fwd").style.cursor = "default";
     }
 
@@ -107,6 +90,7 @@ function setBtns() {
         document.querySelector(".bwd").style.cursor = "pointer";
     } else {
         document.querySelector(".bwd").style.opacity = ".5";
+        document.querySelector(".bwd").style.color = "#333";
         document.querySelector(".bwd").style.cursor = "default";
     }
 

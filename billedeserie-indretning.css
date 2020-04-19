@@ -11,12 +11,12 @@ img {
 }
 
 main {
-    width: 50vw;
+    width: 100%;
 }
 
 .carousel {
     width: 100%;
-    height: 100%;
+    z-index: -1;
 }
 
 .the-container {
@@ -34,27 +34,49 @@ main {
     display: flex;
 }
 
+#caro-section {
+    padding: 0;
+}
+
+#arrow-container {
+    display: flex;
+    justify-content: space-around;
+}
+
 .bwd,
 .fwd {
+    margin-top: -60px;
     display: flex;
     align-items: center;
     cursor: pointer;
+    transition: .3s;
+}
+
+.bwd:hover,
+.fwd:hover {
+    font-family: gingerpro-bold;
+    transform: scale(1.1);
 }
 
 .bwd p,
 .fwd p {
-    z-index: 10;
-    position: absolute;
-    color: #333;
+    z-index: 0;
+    color: #FF6138;
     font-size: 2rem;
     font-weight: bold;
 
     line-height: 1;
     margin: 0;
+
+    user-select: none;
 }
 
-.fwd p {
-    margin-left: -18px;
+.fwd {
+    margin-right: 40px;
+}
+
+.bwd {
+    margin-left: 40px;
 }
 
 .legend-border {
