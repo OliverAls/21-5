@@ -78,19 +78,3 @@ main {
 .bwd {
     margin-left: 40px;
 }
-
-.legend-border {
-    outline: 0.25px solid black;
-    outline-offset: -1px;
-}
-
-.legend-pic-container section {
-    display: inline-block;
-    height: 5vh;
-}
-
-.legend-pic-container img {
-    height: 100%;
-    width: auto;
-    cursor: pointer;
-}

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Destinationer</title>
+    <title>idk</title>
     <link rel="stylesheet" href="burgermenu.css">
     <link rel="stylesheet" href="billedeserie-indretning.css">
 
@@ -17,7 +17,7 @@
         h1 {
             font-family: gingerpro-bold;
             margin: 0;
-            font-size: 1.8rem;
+            font-size: 3rem;
 
         }
 
@@ -28,7 +28,9 @@
         h1,
         h2,
         h3,
-        p {
+        p,
+        ul,
+        li {
             color: #34170F;
         }
 
@@ -71,11 +73,7 @@
             flex-direction: column;
             justify-content: center;
             margin-top: 150px;
-            margin-bottom: 30px;
-        }
-
-        #intro-text {
-            margin-top: 50px;
+            margin-bottom: 5px;
         }
 
         footer {
@@ -146,6 +144,10 @@
             justify-content: center;
         }
 
+        #destinationer-menu a {
+            text-decoration: none;
+        }
+
         #destinationer-menu h1 {
             margin: 0;
             line-height: 0.9;
@@ -192,6 +194,15 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+        }
+
+        #destination {
+            font-size: 2.2rem;
+            margin: 50px 0 0 0;
+        }
+
+        #beskrivelse h2 {
+            margin: 0;
         }
 
         .menu-container a {
@@ -254,28 +265,39 @@
             }
         }
 
-        #dropdown p {}
+        #intro-text {
+            margin-top: 50px;
+        }
+
+        #beskrivelse {
+            margin-top: 50px;
+        }
+
+        .text-container1,
+        .text-container2,
+        .text-container3 {
+            margin-bottom: 60px;
+        }
 
     </style>
 </head>
 
 <body>
 
-
-
     <header>
         <nav>
             <a href="index.html">
                 <img src="billeder/logo2.png" alt="21-5 logo" class="idk">
             </a>
+
+            <div class="wrapper-menu">
+                <div class="line-menu half start"></div>
+                <div class="line-menu"></div>
+                <div class="line-menu half end"></div>
+            </div>
+
         </nav>
     </header>
-
-    <div class="wrapper-menu">
-        <div class="line-menu half start"></div>
-        <div class="line-menu"></div>
-        <div class="line-menu half end"></div>
-    </div>
 
     <section class="burgermenu hide vis-burgermenu">
         <div id="link-container">
@@ -287,7 +309,10 @@
 
     <section id="intro">
         <div id="destinationer-menu">
-            <h1></h1>
+            <a href="destinationer.html">
+                <h1>Destinationer</h1>
+            </a>
+
             <div id="dropdown"></div>
         </div>
 
@@ -298,22 +323,10 @@
                 </template>
             </div>
         </div>
-
-        <div id="intro-text"></div>
+        <h2 id="destination"></h2>
     </section>
 
-    <section id="udvaelgelse">
-    </section>
-
-    <section id="indstandsaettelse">
-    </section>
-
-    <section id="skrot-slot">
-    </section>
-
-    <section id="indretning">
-        <div id="indretning-text1"></div>
-
+    <section id="billedeserie">
         <template id="caro-template">
             <section id="caro-section">
                 <img class="caro-imgs" src="" alt="">
@@ -338,13 +351,13 @@
                 </div>
             </div>
         </main>
-        <div id="indretning-text2"></div>
-        <div id="indretning-text3"></div>
     </section>
 
-    <section id="skaber-hjem">
+    <section id="beskrivelse">
+        <div class="text-container1"></div>
+        <div class="text-container2"></div>
+        <div class="text-container3"></div>
     </section>
-
 
     <footer>
         <img src="billeder/logo.svg" alt="" class="footer_logo">
@@ -366,21 +379,17 @@
 
     </footer>
 
+
+    <script src="billedeserie-destination.js"></script>
     <script src="burgermenu.js"></script>
-    <script src="billedeserie-indretning.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", start);
 
-        const pageEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/pages/35?_embed";
-        let destinationer = [];
+        const destinationEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/destination";
+        let destination = [];
 
-
-        const imageEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/media";
-        let images = [];
-
-        const stederEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/destination";
-        let steder = [];
-
+        const urlParams = new URLSearchParams(window.location.search);
+        const sted = urlParams.get("sted");
 
         let menuContainer = document.querySelector("#menu");
         let menupunktTemplate = document.querySelector("#menu-template");
@@ -391,44 +400,41 @@
         }
 
         async function loadData() {
-            const pageResponse = await fetch(pageEndpoint);
-            destinationer = await pageResponse.json();
-            console.log(destinationer);
-
-
-            const imageResponse = await fetch(imageEndpoint);
-            images = await imageResponse.json();
-
-            const stederResponse = await fetch(stederEndpoint);
-            steder = await stederResponse.json();
-            console.log(steder);
-            visDestinationer();
+            const destinationResponse = await fetch(destinationEndpoint);
+            destination = await destinationResponse.json();
+            console.log(destination);
+            console.log(sted);
+            visDestination();
         }
 
 
-        function visDestinationer() {
-            let introSec = document.querySelector("h1");
+        function visDestination() {
+            let overskrift = document.querySelector("#destination");
 
-            introSec.textContent = destinationer.title.rendered;
+            destination.forEach(place => {
+                if (place.slug == sted) {
+                    overskrift.textContent = place.destinationnavn;
+                    document.title = "Destination - " + place.destinationnavn;
 
-            let content = destinationer.content.rendered.split(`<hr class="wp-block-separator"/>`);
-            console.log(content);
-            content.forEach(afsnit => {
-                document.querySelector("#intro-text").innerHTML = content[0];
-                document.querySelector("#udvaelgelse").innerHTML = content[1];
-                document.querySelector("#indstandsaettelse").innerHTML = content[2];
-                document.querySelector("#skrot-slot").innerHTML = content[3];
-                document.querySelector("#indretning-text1").innerHTML = content[4];
-                document.querySelector("#indretning-text2").innerHTML = content[5];
-                document.querySelector("#indretning-text3").innerHTML = content[6];
-                document.querySelector("#skaber-hjem").innerHTML = content[7];
+                    //document.querySelector(".text-container p").textContent = place.beskrivelse;
+
+                    let content = place.content.rendered.split(`<hr class="wp-block-separator"/>`);
+                    console.log(content);
+                    content.forEach(afsnit => {
+                        document.querySelector(".text-container1").innerHTML = content[0];
+                        document.querySelector(".text-container2").innerHTML = content[1];
+                        document.querySelector(".text-container3").innerHTML = content[2];
+                    });
+                }
+
             });
+
 
             let dropdown = document.querySelector("#dropdown");
             dropdown.addEventListener("click", visDropdown);
 
             menuContainer.innerHTML = "";
-            steder.forEach(sted => {
+            destination.forEach(sted => {
                 let stedKlon = menupunktTemplate.cloneNode(true).content;
                 stedKlon.querySelector("a").href = "#";
                 stedKlon.querySelector("a").textContent = sted.title.rendered;
@@ -455,10 +461,6 @@
         }
 
     </script>
-
-
-
-
 </body>
 
 </html>
