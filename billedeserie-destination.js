@@ -17,7 +17,6 @@ function start() {
 }
 
 async function loadData() {
-
     const response = await fetch(endpoint);
     billedeserie = await response.json();
     console.log(billedeserie);
