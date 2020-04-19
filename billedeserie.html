@@ -5,83 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>billedeserie</title>
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-        }
-
-        img {
-            width: 100%;
-        }
-
-        main {
-            width: 50vw;
-        }
-
-        .carousel {
-            width: 100%;
-            height: 100%;
-        }
-
-        .the-container {
-            display: flex;
-            overflow-x: scroll;
-            scroll-snap-type: x mandatory;
-        }
-
-        .the-container section {
-            min-width: 100%;
-            scroll-snap-align: start;
-        }
-
-        .carousel-inner {
-            display: flex;
-        }
-
-        .bwd,
-        .fwd {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-        }
-
-        .bwd p,
-        .fwd p {
-            z-index: 10;
-            position: absolute;
-            color: #fff;
-            font-size: 2rem;
-            font-weight: bold;
-
-            line-height: 1;
-            margin: 0;
-        }
-
-        .fwd p {
-            margin-left: -18px;
-        }
-
-        .legend-border {
-            outline: 0.25px solid black;
-            outline-offset: -1px;
-        }
-
-        .legend-pic-container section {
-            display: inline-block;
-            height: 5vh;
-        }
-
-        .legend-pic-container img {
-            height: 100%;
-            width: auto;
-            cursor: pointer;
-        }
-
-    </style>
+    <link rel="stylesheet" href="billedeserie.css">
 </head>
 
 <body>
@@ -101,132 +25,15 @@
 
                 <div class="the-container"></div>
 
-
                 <div class="fwd">
                     <p>&gt;</p>
                 </div>
             </div>
-
             <div class="legend-pic-container"></div>
-
         </div>
-
     </main>
 
-
-
-
-
-    <script>
-        "use strict"
-        document.addEventListener("DOMContentLoaded", start);
-        const endpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/destination/316";
-        let billedeserie = [];
-        let numberOfPicsInCarousel;
-        let caroCurrentNum = 0;
-
-        function start() {
-            loadData()
-            document.querySelector(".fwd").addEventListener("click", fwd);
-            document.querySelector(".bwd").addEventListener("click", bwd);
-        }
-
-        async function loadData() {
-            const response = await fetch(endpoint);
-            billedeserie = await response.json();
-            console.log(billedeserie);
-
-            buildCarousel();
-        }
-
-        function buildCarousel() {
-            numberOfPicsInCarousel = billedeserie.billeder.length;
-            billedeserie.billeder.forEach((billede, index) => {
-                const theClone = document.querySelector("template").cloneNode(true).content;
-                const secondClone = document.querySelector("template").cloneNode(true).content;
-
-                theClone.querySelector("img").src = billede.guid;
-                secondClone.querySelector("img").src = billede.guid;
-                secondClone.querySelector("section").dataset.myIndex = index;
-
-
-                document.querySelector(".the-container").appendChild(theClone);
-                document.querySelector(".legend-pic-container").appendChild(secondClone);
-            });
-
-
-            document.querySelector(".legend-pic-container section").classList.add("legend-border");
-            document.querySelector(".the-container").addEventListener("scroll", scrollFunction);
-
-            document.querySelectorAll(".legend-pic-container section").forEach(section => {
-                section.addEventListener("click", legendClick);
-            });
-        }
-
-        function scrollFunction() {
-            //console.log("jeg scrollede");
-            caroCurrentNum = Math.round(document.querySelector(".the-container").scrollLeft / document.querySelector(".caro-imgs").width);
-            console.log(caroCurrentNum);
-            document.querySelectorAll(".legend-pic-container section").forEach(section => {
-                section.classList.remove("legend-border");
-            });
-            document.querySelector(`.legend-pic-container section:nth-child(${caroCurrentNum + 1})`).classList.add("legend-border");
-            setBtns();
-        }
-
-        function legendClick(evt) {
-            //console.log(evt.currentTarget);
-            caroCurrentNum = evt.currentTarget.dataset.myIndex;
-            navigate();
-        }
-
-
-        function fwd() {
-            if (caroCurrentNum < numberOfPicsInCarousel - 1) {
-                caroCurrentNum++;
-                navigate();
-            }
-
-        }
-
-        function bwd() {
-            if (caroCurrentNum > 0) {
-                caroCurrentNum--;
-                navigate();
-            }
-
-        }
-
-        function navigate() {
-            document.querySelector(".the-container").scrollTo({
-                left: caroCurrentNum * document.querySelector(".caro-imgs").width,
-                behavior: "smooth"
-            });
-
-            setBtns();
-        }
-
-
-        function setBtns() {
-            if (caroCurrentNum < numberOfPicsInCarousel - 1) {
-                document.querySelector(".fwd").style.opacity = "1";
-                document.querySelector(".fwd").style.cursor = "pointer";
-            } else {
-                document.querySelector(".fwd").style.opacity = ".5";
-                document.querySelector(".fwd").style.cursor = "default";
-            }
-
-            if (caroCurrentNum > 0) {
-                document.querySelector(".bwd").style.opacity = "1";
-                document.querySelector(".bwd").style.cursor = "pointer";
-            } else {
-                document.querySelector(".bwd").style.opacity = ".5";
-                document.querySelector(".bwd").style.cursor = "default";
-            }
-
-        }
-
-    </script>
+    <script src="billedeserie.js"></script>
 </body>
 
 </html>
