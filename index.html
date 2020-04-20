@@ -65,7 +65,7 @@
 
         #intro,
         #kaffe {
-            width: 100vw;
+            /*            width: 100vw;*/
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -73,12 +73,9 @@
             margin-bottom: 30px;
         }
 
-        #intro p,
-        #intro h2,
-        #kaffe p,
-        #kaffe h2 {
+        #intro,
+        #kaffe {
             padding: 0 40px;
-            max-width: 1000px;
         }
 
         #splash {
@@ -93,16 +90,17 @@
         }
 
         #sizes {
-            width: 100vw;
             display: flex;
             justify-content: center;
-            margin: 20px 0;
             flex-wrap: wrap;
+            margin: 20px 30px;
         }
 
         #husstorrelse {
             min-width: 300px;
+            max-width: 300px;
             min-height: 300px;
+            justify-self: center;
             background-color: #FF6138;
             display: flex;
             justify-content: center;
@@ -123,7 +121,6 @@
             height: 150px;
             background-color: #F0F0F0;
             padding: 0 20px;
-
             display: flex;
             flex-direction: column;
         }
@@ -181,6 +178,54 @@
             display: none;
         }
 
+        main {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-column-gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        @media screen and (min-width: 1200px) {
+            #intro h2 {
+                font-size: 2.5rem;
+                margin: 0;
+            }
+
+            #intro p {
+                width: 80%;
+            }
+
+            #sizes {
+                /*
+                width: 1000px;
+                justify-content: flex-start;
+*/
+                display: flex;
+                max-width: 100%;
+                min-width: 100%;
+                margin: 0;
+                padding: 0;
+                justify-content: space-between;
+            }
+
+            #intro,
+            #kaffe,
+            sizes {
+                padding: 0;
+            }
+
+            #husstorrelse {
+                margin: 0;
+            }
+        }
+
+
+
+
+
+
+        /*****ANIMATIONER*****/
         .vis-burgermenu {
             animation-name: vis_burgermenu_kf;
             animation-duration: .7s;
@@ -251,23 +296,26 @@
 
     </section>
 
-    <section id="intro">
-        <h2></h2>
-        <p></p>
-    </section>
+    <main>
+        <section id="intro">
+            <h2></h2>
+            <p></p>
+        </section>
 
-    <section id="sizes">
-        <template>
-            <article id="husstorrelse">
-                <h2></h2>
-                <p></p>
-                <p></p>
-            </article>
-        </template>
-    </section>
+        <section id="sizes">
+            <template>
+                <article id="husstorrelse">
+                    <h2></h2>
+                    <p></p>
+                    <p></p>
+                </article>
+            </template>
+        </section>
 
-    <section id="kaffe">
-    </section>
+        <section id="kaffe">
+        </section>
+    </main>
+
 
     <footer>
         <img src="billeder/logo.svg" alt="" class="footer_logo">

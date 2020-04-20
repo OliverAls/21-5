@@ -17,12 +17,28 @@ main {
 .carousel {
     width: 100%;
     z-index: -1;
+
 }
 
 .the-container {
     display: flex;
     overflow-x: scroll;
     scroll-snap-type: x mandatory;
+
+}
+
+
+/*remove scrollbar on every browser from carousel*/
+/*-webkit- (Chrome, Safari, nyere versioner of Opera)*/
+.the-container::-webkit-scrollbar {
+    width: 0 !important
+}
+
+/*-moz- (Firefox)*/
+/*-ms- (Internet Explorer +10)*/
+.the-container {
+    overflow: -moz-scrollbars-none;
+    -ms-overflow-style: none;
 }
 
 .the-container section {
