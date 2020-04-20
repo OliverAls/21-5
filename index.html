@@ -296,10 +296,8 @@
         document.addEventListener("DOMContentLoaded", start);
 
         const pageEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/pages/13?_embed";
-        const imageEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/media?per_page=100";
         const houseEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/husstoerrelse";
         let landingpage = [];
-        let images = [];
         let houseSizes = [];
 
 
@@ -313,14 +311,22 @@
             console.log(landingpage);
 
 
-            const imageResponse = await fetch(imageEndpoint);
-            images = await imageResponse.json();
-
-
             const houseResponse = await fetch(houseEndpoint);
             houseSizes = await houseResponse.json();
             visLanding();
         }
+
+
+        setInterval(function() {
+            //console.log(window.pageYOffset);
+            if (window.pageYOffset > 780) {
+                document.querySelector("nav").classList.add("nav_baggrund");
+            }
+
+            if (window.pageYOffset < 780) {
+                document.querySelector("nav").classList.remove("nav_baggrund");
+            }
+        }, 500);
 
 
 
@@ -329,16 +335,10 @@
             const splash = document.querySelector("#splash");
             const splashText = document.querySelector("h1");
 
-            setInterval(function() {
-                //console.log(window.pageYOffset);
-                if (window.pageYOffset > 780) {
-                    document.querySelector("nav").classList.add("nav_baggrund");
-                }
 
-                if (window.pageYOffset < 780) {
-                    document.querySelector("nav").classList.remove("nav_baggrund");
-                }
-            }, 500);
+            let featured = landingpage._embedded['wp:featuredmedia'][0].source_url;
+            console.log(featured);
+            splash.style.backgroundImage = `url(${featured})`;
 
 
             let content = landingpage.content.rendered.split(`<hr class="wp-block-separator"/>`);
@@ -349,15 +349,6 @@
             });
 
             splashText.textContent = landingpage.title.rendered;
-            images.forEach(billede => {
-                const splashID = landingpage.featured_media;
-                //console.log(splashID);
-                if (billede.id == splashID) {
-                    splashImage = billede.guid.rendered;
-                    splash.style.backgroundImage = `url(${billede.guid.rendered})`;
-                }
-            });
-
             let container = document.querySelector("#sizes");
             let husTemplate = document.querySelector("template");
             container.innerHTML = "";
@@ -375,6 +366,7 @@
                 container.appendChild(klon);
 
             });
+
 
 
 

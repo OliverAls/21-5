@@ -216,9 +216,7 @@
         document.addEventListener("DOMContentLoaded", start);
 
         const pageEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/pages/98?_embed";
-        const imageEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/media";
         let kontakt = [];
-        let images = [];
 
 
         function start() {
@@ -229,10 +227,6 @@
             const pageResponse = await fetch(pageEndpoint);
             kontakt = await pageResponse.json();
             console.log(kontakt);
-
-
-            const imageResponse = await fetch(imageEndpoint);
-            images = await imageResponse.json();
             visKontakt();
         }
 

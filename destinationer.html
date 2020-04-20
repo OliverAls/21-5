@@ -374,10 +374,6 @@
         const pageEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/pages/35?_embed";
         let destinationer = [];
 
-
-        const imageEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/media";
-        let images = [];
-
         const stederEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/destination";
         let steder = [];
 
@@ -394,10 +390,6 @@
             const pageResponse = await fetch(pageEndpoint);
             destinationer = await pageResponse.json();
             console.log(destinationer);
-
-
-            const imageResponse = await fetch(imageEndpoint);
-            images = await imageResponse.json();
 
             const stederResponse = await fetch(stederEndpoint);
             steder = await stederResponse.json();
