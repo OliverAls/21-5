@@ -5,263 +5,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>21-5</title>
+    <link rel="stylesheet" href="landingpage.css">
     <link rel="stylesheet" href="burgermenu.css">
 
 
     <style>
-        * {
-            box-sizing: border-box;
-        }
 
-        h1 {
-            font-family: gingerpro-bold;
-            margin: 0;
-            font-size: 3rem;
-            color: #fff;
-        }
-
-        h2 {
-            font-family: gingerpro-bold;
-        }
-
-        h2,
-        h3,
-        p {
-            color: #34170F;
-        }
-
-        @font-face {
-            font-family: 'gingerpro';
-            src: url('fonts/f37gingerpro-regular-webfont.woff') format('woff');
-            src: url('fonts/f37gingerpro-regular-webfont.woff2') format('woff2');
-            font-display: swap;
-        }
-
-        @font-face {
-            font-family: 'gingerpro-bold';
-            src: url('fonts/f37gingerpro-bold-webfont.woff') format('woff');
-            src: url('fonts/f37gingerpro-bold-webfont.woff2') format('woff2');
-            font-display: swap;
-        }
-
-        @font-face {
-            font-family: 'gingerpro-light';
-            src: url('fonts/f37gingerpro-light-webfont.woff') format('woff');
-            src: url('f37gingerpro-light-webfont.woff2') format('woff2');
-            font-display: swap;
-        }
-
-
-
-        body {
-            margin: 0;
-            font-family: gingerpro;
-        }
-
-
-        img {
-            width: 100%;
-        }
-
-        #intro,
-        #kaffe {
-            /*            width: 100vw;*/
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            margin-top: 70px;
-            margin-bottom: 30px;
-        }
-
-        #intro,
-        #kaffe {
-            padding: 0 40px;
-        }
-
-        #splash {
-            width: 100vw;
-            height: 100vh;
-            background-position: center;
-            background-size: cover;
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        #sizes {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin: 20px 30px;
-        }
-
-        #husstorrelse {
-            min-width: 300px;
-            max-width: 300px;
-            min-height: 300px;
-            justify-self: center;
-            background-color: #FF6138;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            margin: 15px 15px;
-            color: #fff;
-        }
-
-        #husstorrelse p,
-        #husstorrelse h2 {
-            color: #fff;
-        }
-
-
-        footer {
-            width: 100vw;
-            height: 150px;
-            background-color: #F0F0F0;
-            padding: 0 20px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        footer img {
-            margin-top: 8px;
-        }
-
-        footer p {
-            margin: 0;
-        }
-
-        footer h3 {
-            margin: 0;
-            margin-top: 10px;
-            font-family: gingerpro-bold;
-        }
-
-        .footer_logo {
-            width: 60px;
-            height: 60px;
-        }
-
-        footer .socials {}
-
-        footer .socials img {
-            width: 30px;
-        }
-
-        .footer_container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-
-        nav {
-            width: 100vw;
-            height: 100px;
-
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            padding: 0 30px;
-            position: fixed;
-            z-index: 100;
-        }
-
-        nav img {
-            width: 60px;
-        }
-
-        .hide {
-            display: none;
-        }
-
-        main {
-            display: grid;
-            grid-template-columns: 1fr;
-            grid-column-gap: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        @media screen and (min-width: 1200px) {
-            #intro h2 {
-                font-size: 2.5rem;
-                margin: 0;
-            }
-
-            #intro p {
-                width: 80%;
-            }
-
-            #sizes {
-                /*
-                width: 1000px;
-                justify-content: flex-start;
-*/
-                display: flex;
-                max-width: 100%;
-                min-width: 100%;
-                margin: 0;
-                padding: 0;
-                justify-content: space-between;
-            }
-
-            #intro,
-            #kaffe,
-            sizes {
-                padding: 0;
-            }
-
-            #husstorrelse {
-                margin: 0;
-            }
-        }
-
-
-
-
-
-
-        /*****ANIMATIONER*****/
-        .vis-burgermenu {
-            animation-name: vis_burgermenu_kf;
-            animation-duration: .7s;
-            animation-iteration-count: 1;
-            animation-timing-function: ease-out;
-            animation-fill-mode: forwards;
-        }
-
-        .nav_baggrund {
-            animation-name: nav_baggrund_kf;
-            animation-duration: .3s;
-            animation-iteration-count: 1;
-            animation-timing-function: ease-out;
-            animation-fill-mode: both;
-        }
-
-        @keyframes nav_baggrund_kf {
-            0% {
-                background-color: none;
-            }
-
-            100% {
-                background-color: rgb(255, 255, 255);
-            }
-        }
-
-        @keyframes vis_burgermenu_kf {
-            0% {
-                opacity: 0%;
-            }
-
-
-            100% {
-                opacity: 100%;
-            }
-        }
 
     </style>
 </head>
@@ -291,8 +40,10 @@
     </section>
 
     <section id="splash">
+        <div class="heading-bg">
+            <h1>Tænk hvis du ejede 5 unikke ferieboliger i udlandet</h1>
+        </div>
 
-        <h1></h1>
 
     </section>
 
@@ -396,7 +147,7 @@
                 document.querySelector("#kaffe").innerHTML = content[1];
             });
 
-            splashText.textContent = landingpage.title.rendered;
+            //splashText.textContent = landingpage.title.rendered;
             let container = document.querySelector("#sizes");
             let husTemplate = document.querySelector("template");
             container.innerHTML = "";
