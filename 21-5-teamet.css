@@ -54,12 +54,8 @@ img {
     width: 100%;
 }
 
-strong {
-    font-family: gingerpro-bold;
-}
-
 section {
-    /*    padding: 0 40px;*/
+    padding: 0 40px;
     margin-bottom: 60px;
 }
 
@@ -113,6 +109,7 @@ footer .socials img {
     align-items: center;
 }
 
+
 nav {
     width: 100vw;
     height: 100px;
@@ -133,31 +130,27 @@ nav img {
     width: 60px;
 }
 
-#konceptet-menu {
+#om-os-menu {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-#konceptet-menu h1 {
+#om-os-menu h1 {
     margin: 0;
     line-height: 0.9;
     font-size: 1.8rem;
 }
 
-#konceptet-menu a {
+#om-os-menu a {
     text-decoration: none;
 }
 
-#praktisk {
+#vores-familier {
     margin-top: 50px;
     font-size: 3rem;
     text-align: center;
     margin-bottom: 10px;
-}
-
-#hvor h2 {
-    margin: 10px 0;
 }
 
 #dropdown {
@@ -195,7 +188,6 @@ nav img {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: -1;
 }
 
 .menu-container a {
@@ -218,18 +210,41 @@ nav img {
     display: none;
 }
 
-
-figure {
-    margin: 0;
+#intro-text {
+    margin-top: 50px;
 }
 
-#page-main {
+
+
+
+#billede {
+    width: 400px;
+    height: 250px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+
+#container {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
     grid-column-gap: 20px;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 40px;
+    grid-column-gap: 100px;
+}
+
+#udtalelse {
+    width: 100%;
+    align-self: baseline;
+}
+
+#udtalelse #billede {
+    width: 100%;
+    height: 340px;
 }
 
 
@@ -243,51 +258,20 @@ figure {
         position: absolute;
         left: 48.5vw;
     }
+
+    #container {
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    }
 }
 
 
 
 
 @media screen and (min-width: 1200px) {
-    #section-header {
-        font-size: 2rem;
+    #container {
+        grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
     }
-
-    #page-main {
-        padding: 0;
-    }
-
-    #intro-text {
-        padding: 0 5vw;
-        margin-bottom: 50px;
-        /*        font-size: 1.2rem;*/
-    }
-
-
-    .wp-block-columns {
-        display: flex;
-        flex-direction: row;
-        padding-bottom: 50px;
-    }
-
-    .section-header {
-        font-size: 2rem;
-        margin: 0;
-    }
-
-    .wp-block-column:first-child {
-        width: 50%;
-        padding-right: 2vw;
-    }
-
-    .wp-block-column:last-child {
-        width: 50%;
-        padding-left: 2vw;
-    }
-
 }
-
-
 
 
 
@@ -335,4 +319,24 @@ figure {
     100% {
         transform: rotate(180deg);
     }
+}
+
+article {
+    margin-bottom: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+article h2 {
+    margin: 5px;
+    line-height: 1.2;
+}
+
+#billede {
+    width: 400px;
+    height: 320px;
+    background-size: cover;
+    background-position: 50% 0%;
+    background-repeat: no-repeat;
 }

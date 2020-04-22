@@ -2,6 +2,10 @@
     box-sizing: border-box;
 }
 
+*::selection {
+    background-color: #FFB302;
+}
+
 h1 {
     font-family: gingerpro-bold;
     margin: 0;
