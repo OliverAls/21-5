@@ -5,250 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Om konceptet</title>
+    <link rel="stylesheet" href="om-konceptet.css">
     <link rel="stylesheet" href="burgermenu.css">
 
 
     <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        h1 {
-            font-family: gingerpro-bold;
-            margin: 0;
-            font-size: 3rem;
-
-        }
-
-        h2 {
-            font-family: gingerpro-bold;
-        }
-
-        h1,
-        h2,
-        h3,
-        p {
-            color: #34170F;
-        }
-
-        @font-face {
-            font-family: 'gingerpro';
-            src: url('fonts/f37gingerpro-regular-webfont.woff') format('woff');
-            src: url('fonts/f37gingerpro-regular-webfont.woff2') format('woff2');
-        }
-
-        @font-face {
-            font-family: 'gingerpro-bold';
-            src: url('fonts/f37gingerpro-bold-webfont.woff') format('woff');
-            src: url('fonts/f37gingerpro-bold-webfont.woff2') format('woff2');
-        }
-
-        @font-face {
-            font-family: 'gingerpro-light';
-            src: url('fonts/f37gingerpro-light-webfont.woff') format('woff');
-            src: url('f37gingerpro-light-webfont.woff2') format('woff2');
-        }
-
-
-        body {
-            margin: 0;
-            font-family: gingerpro;
-            overflow-x: hidden;
-        }
-
-        img {
-            width: 100%;
-        }
-
-        section {
-            padding: 0 40px;
-            margin-bottom: 60px;
-        }
-
-        #intro {
-            width: 100vw;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            margin-top: 150px;
-            margin-bottom: 30px;
-        }
-
-        footer {
-            width: 100vw;
-            height: 150px;
-            background-color: #F0F0F0;
-            padding: 0 20px;
-
-            display: flex;
-            flex-direction: column;
-        }
-
-        footer img {
-            margin-top: 8px;
-        }
-
-        footer p {
-            margin: 0;
-        }
-
-        footer h3 {
-            margin: 0;
-            margin-top: 10px;
-            font-family: gingerpro-bold;
-        }
-
-        .footer_logo {
-            width: 60px;
-            height: 60px;
-        }
-
-        footer .socials {}
-
-        footer .socials img {
-            width: 30px;
-        }
-
-        .footer_container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-
-        nav {
-            width: 100vw;
-            height: 100px;
-
-
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            padding: 0 30px;
-            position: fixed;
-            top: 0;
-            background-color: #fff;
-            z-index: 100;
-        }
-
-        nav img {
-            width: 60px;
-        }
-
-        #konceptet-menu {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        #konceptet-menu h1 {
-            margin: 0;
-            line-height: 0.9;
-            font-size: 1.8rem;
-        }
-
-        #dropdown {
-            height: 25px;
-            width: 25px;
-            margin-left: 20px;
-            border: 3px solid #FF6138;
-            text-align: center;
-            color: #FF6138;
-            line-height: 1.1;
-            cursor: pointer;
-            background-image: url(billeder/arrow.svg);
-            background-size: 10px;
-            background-repeat: no-repeat;
-            background-position: 40%;
-        }
-
-        #dropdown p {}
-
-        .menu-container {
-            width: 100%;
-            margin-top: 20px;
-
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background-color: #fff;
-            z-index: 0;
-
-        }
-
-        #menu {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .menu-container a {
-            text-decoration: none;
-            color: #34170F;
-            font-family: gingerpro-bold;
-            font-size: 1.1rem;
-            margin-bottom: 8px;
-            transition: .3s;
-            align-self: flex-start;
-            margin-left: -6px;
-        }
-
-        .menu-container a:hover {
-            text-underline-position: below;
-            color: #FF6138;
-        }
-
-        .hide {
-            display: none;
-        }
-
-        #intro-text {
-            margin-top: 50px;
-        }
-
-        .vis-menu {
-            animation-name: vis_menu_kf;
-            animation-duration: .5s;
-            animation-fill-mode: forwards;
-            animation-iteration-count: 1;
-            animation-timing-function: ease-out;
-        }
-
-        .rotate-arrow {
-            animation-name: rotate_arrow_kf;
-            animation-duration: .5s;
-            animation-fill-mode: forwards;
-            animation-direction: alternate;
-            animation-iteration-count: 1;
-            animation-timing-function: ease-out;
-        }
-
-        @keyframes vis_menu_kf {
-            0% {
-                transform: translateY(-20px);
-                opacity: 0;
-            }
-
-            100% {
-                transform: translateY(0);
-                opacity: 1;
-                z-index: 1;
-            }
-        }
-
-        @keyframes rotate_arrow_kf {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(180deg);
-            }
-        }
-
     </style>
 </head>
 
@@ -294,20 +55,21 @@
         <div id="intro-text"></div>
     </section>
 
-    <section id="hvad">
-    </section>
+    <main id="page-main">
+        <section id="hvad">
+        </section>
 
-    <section id="hvorfor">
-    </section>
+        <section id="hvorfor">
+        </section>
 
-    <section id="hvem">
-    </section>
+        <section id="hvem">
+        </section>
 
-    <section id="benyttelse">
-    </section>
+        <section id="faellesskab">
+        </section>
 
-    <section id="faellesskab">
-    </section>
+    </main>
+
 
 
     <footer>
@@ -374,8 +136,7 @@
                 document.querySelector("#hvad").innerHTML = content[1];
                 document.querySelector("#hvorfor").innerHTML = content[2];
                 document.querySelector("#hvem").innerHTML = content[3];
-                document.querySelector("#benyttelse").innerHTML = content[4];
-                document.querySelector("#faellesskab").innerHTML = content[5];
+                document.querySelector("#faellesskab").innerHTML = content[4];
             });
 
 

@@ -17,14 +17,14 @@ main {
 .carousel {
     width: 100%;
     z-index: -1;
-
 }
 
 .the-container {
     display: flex;
     overflow-x: scroll;
+    /*    overflow-y: hidden;*/
     scroll-snap-type: x mandatory;
-
+    /*    height: 70vh;*/
 }
 
 
