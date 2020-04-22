@@ -49,6 +49,7 @@ p {
 body {
     margin: 0;
     font-family: gingerpro;
+    overflow-x: hidden;
 }
 
 
@@ -58,7 +59,7 @@ img {
 
 #intro,
 #kaffe {
-    /*            width: 100vw;*/
+    /*    width: 100vw;*/
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -79,24 +80,33 @@ img {
 
     display: flex;
     justify-content: center;
-    /*    align-items: center;*/
+    align-items: center;
 }
 
+/*
 .heading-bg {
-    position: absolute;
-    left: 15vw;
-    top: 20vh;
-    width: 80vw;
-    padding: 10px 20px;
-    /*    background-color: rgba(52, 23, 15, 0.75);*/
-    /*    text-align: center;*/
+    width: 60vw;
+    padding: 10px 0px;
+    background-color: rgb(255, 97, 56);
+    border-radius: 10px;
+    text-align: center;
 }
+
+.heading-bg h1 {
+    color: #fff;
+    font-size: 2.2rem;
+}
+*/
 
 #sizes {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     margin: 20px 30px;
+}
+
+#sizes a {
+    text-decoration: none;
 }
 
 #husstorrelse {
@@ -126,6 +136,7 @@ img {
 #husstorrelse h2 {
     color: #FF6138;
     padding: 0 40px;
+    text-align: center;
 }
 
 
@@ -208,6 +219,68 @@ main {
 
 
 
+
+
+
+#landing-animation {
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+
+    background-color: rgb(255, 97, 56);
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 40px;
+    text-align: center;
+
+    animation-name: landing_animation_kf;
+    animation-duration: 2.7s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+}
+
+.logo {
+    margin-top: -200px;
+    width: 20%;
+    min-width: 220px;
+}
+
+#landing-animation h1 {
+    font-size: 2.5rem;
+}
+
+#landing-animation h1 br {
+    display: none;
+}
+
+.fade-in-out {
+    color: #fff;
+
+    animation-name: header_animation_kf;
+    animation-duration: 3s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+}
+
+
+
+
+@media screen and (max-width: 500px) {
+
+    #intro,
+    #kaffe {
+        width: 100vw;
+    }
+}
+
+
+
+
 @media screen and (min-width: 500px) {
     #intro h2 {
         font-size: 2.5rem;
@@ -267,6 +340,19 @@ main {
         min-height: 200px;
     }
 
+    #husstorrelse h2 {
+        font-size: 1.4rem;
+        margin: 35px 0 0 0;
+    }
+
+    #husstorrelse p {
+        margin: 5px 0;
+    }
+
+    #husstorrelse p:last-child {
+        margin: 0;
+    }
+
     #sizes {
         display: flex;
         flex-direction: row;
@@ -284,6 +370,20 @@ main {
         /*        background-color: rgba(255, 255, 255, 0.3);*/
     }
 
+
+
+    #landing-animation {
+        padding: 0;
+        margin-top: 0;
+    }
+
+    #landing-animation h1 br {
+        display: block;
+    }
+
+    #landing-animation h1 {
+        font-size: 3rem;
+    }
 
 }
 
@@ -317,6 +417,10 @@ main {
 
     #husstorrelse h2 {
         font-size: 2rem;
+        margin: 30px 0 10px 0;
+    }
+
+    #husstorrelse p {
         margin: 10px 0;
     }
 
@@ -387,6 +491,7 @@ main {
     animation-fill-mode: both;
 }
 
+
 @keyframes nav_baggrund_kf {
     0% {
         background-color: none;
@@ -405,5 +510,54 @@ main {
 
     100% {
         opacity: 100%;
+    }
+}
+
+
+
+
+
+
+@keyframes header_animation_kf {
+    0% {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+
+    25% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    80% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    100% {
+        opacity: 0;
+        background-color: transparent;
+        transform: translateY(5px);
+    }
+}
+
+
+
+
+
+@keyframes landing_animation_kf {
+    0% {
+        background-color: rgb(255, 97, 56);
+    }
+
+
+    80% {
+        background-color: rgb(255, 97, 56);
+    }
+
+    100% {
+        background-color: transparent;
+        display: none;
+        z-index: -1;
     }
 }

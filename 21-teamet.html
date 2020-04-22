@@ -143,7 +143,7 @@
 
                 //klon.querySelector("img").src = `${element.billede.guid}`;
 
-                klon.querySelector("p").textContent = element.beskrivelse;
+                klon.querySelector("p").innerHTML = element.content.rendered;
 
                 container.appendChild(klon);
 

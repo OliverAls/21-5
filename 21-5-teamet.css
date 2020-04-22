@@ -50,6 +50,10 @@ body {
     font-family: gingerpro;
 }
 
+strong {
+    font-family: gingerpro-bold;
+}
+
 img {
     width: 100%;
 }
