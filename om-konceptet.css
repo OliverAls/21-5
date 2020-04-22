@@ -100,7 +100,14 @@ footer h3 {
     height: 60px;
 }
 
-footer .socials {}
+footer .socials a img {
+    transition: .2s;
+}
+
+footer .socials a img:hover {
+    transform: scale(1.08);
+    opacity: .8;
+}
 
 footer .socials img {
     width: 30px;
