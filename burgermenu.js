@@ -15,7 +15,7 @@ async function loadData() {
 
 
 function burgermenu() {
-    let menuContainer = document.querySelector("#link-container");
+    let menuContainer = document.querySelector("#main-menu");
     let menuTemplate = document.querySelector("#menu-link");
     menuContainer.innerHTML = "";
     allPages.forEach(page => {
@@ -26,14 +26,18 @@ function burgermenu() {
             menuKlon.querySelector("a").textContent = page.title.rendered;
             menuContainer.appendChild(menuKlon);
 
-            //burgermenu
-            let wrapperMenu = document.querySelector('.wrapper-menu');
-            wrapperMenu.addEventListener('click', function () {
-                wrapperMenu.classList.toggle('open');
 
-                document.querySelector(".burgermenu").classList.toggle("hide");
-                //document.querySelector(".burgermenu").classList.toggle("vis-burgermenu");
-            });
+
         }
+    });
+
+    //burgermenu
+    let wrapperMenu = document.querySelector('.wrapper-menu');
+    wrapperMenu.addEventListener('click', function () {
+        console.log("click");
+        wrapperMenu.classList.toggle('open');
+
+        document.querySelector(".burgermenu").classList.toggle("hide");
+        //document.querySelector(".burgermenu").classList.toggle("vis-burgermenu");
     });
 }
