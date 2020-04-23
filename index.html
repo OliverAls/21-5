@@ -50,7 +50,7 @@
         </div>
     </section>
 
-    <section id="landing-animation">
+    <section id="landing-start" class="landing-animation">
         <img src="billeder/whitelogo.svg" alt="white-logo" class="fade-in-out logo">
         <h1 class="fade-in-out">Tænk hvis du ejede 5 unikke<br> ferieboliger i udlandet</h1>
     </section>
@@ -59,6 +59,11 @@
         <!--        <div class="heading-bg">-->
         <!--        <h1>Tænk hvis du ejede 5 unikke<br> ferieboliger i udlandet</h1>-->
         <!--        </div>-->
+
+        <div class="scroll-container scroll-animation">
+            <div class="scroll-img"></div>
+            <p>SCROLL</p>
+        </div>
     </section>
 
     <main>
@@ -109,6 +114,25 @@
 
     <script src="burgermenu.js"></script>
     <script>
+        //        window.onload = function() {
+        // if (localStorage.getItem("hasCodeRunBefore") === null) {
+        //
+        //
+        //
+        // console.log("idk1");
+        //
+        //
+        // localStorage.setItem("hasCodeRunBefore", true);
+        // } else {
+        // console.log("idk2");
+        // document.querySelector("#landing-start").style.display = "none";
+        // document.querySelector("#landing-start").innerHTML = "";
+        // }
+        // }
+
+
+
+
         document.addEventListener("DOMContentLoaded", start);
 
         const pageEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/pages/13?_embed";
@@ -148,6 +172,8 @@
 
 
         function visLanding() {
+            //document.querySelector("#landing-start").classList.add("landing-animation");
+
             const splash = document.querySelector("#splash");
             const splashText = document.querySelector("h1");
 
