@@ -10,7 +10,10 @@ h1 {
     font-family: gingerpro-bold;
     margin: 0;
     font-size: 3rem;
+}
 
+#headline {
+    text-align: center;
 }
 
 h2 {

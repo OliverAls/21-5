@@ -304,20 +304,23 @@ main {
 
 
 
-
-@media screen and (max-width: 500px) {
-
-    #intro,
-    #kaffe {
-        width: 100vw;
-    }
-
+@media screen and (max-width: 450px) {
     #splash {
         height: 86vh;
     }
 
     #splash .scroll-container {
         margin-bottom: 55px;
+    }
+}
+
+
+
+@media screen and (max-width: 500px) {
+
+    #intro,
+    #kaffe {
+        width: 100vw;
     }
 }
 

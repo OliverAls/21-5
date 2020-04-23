@@ -4,12 +4,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>21-Teamet</title>
-    <link rel="stylesheet" href="21-5-teamet.css">
+    <title>Om 21-5</title>
+    <link rel="stylesheet" href="om-os.css">
     <link rel="stylesheet" href="burgermenu.css">
     <link rel="icon" href="billeder/logo2.png" type="image/x-icon">
 
     <style>
+
+
     </style>
 </head>
 
@@ -17,7 +19,7 @@
 
     <header>
         <nav>
-            <a href="index.html">
+            <a href="forside.html">
                 <img src="billeder/logo2.png" alt="21-5 logo" class="idk">
             </a>
         </nav>
@@ -49,10 +51,8 @@
     </section>
 
     <section id="intro">
-        <div id="om-os-menu">
-            <a href="om-21-5.html">
-                <h1>Om 21-5</h1>
-            </a>
+        <div id="konceptet-menu">
+            <h1></h1>
             <div id="dropdown"></div>
         </div>
 
@@ -63,22 +63,11 @@
                 </template>
             </div>
         </div>
-
     </section>
 
-
-
-    <section id="container">
-        <template id="udtalelse-template">
-            <article id="udtalelse">
-                <h2></h2>
-                <img src="" alt="">
-                <div id="billede"></div>
-                <p></p>
-            </article>
-        </template>
-    </section>
-
+    <main id="page-main">
+        <div id="intro-text"></div>
+    </main>
 
     <footer>
         <img src="billeder/logo.svg" alt="" class="footer_logo">
@@ -100,16 +89,18 @@
 
     </footer>
 
+
+
     <script src="burgermenu.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", start);
 
-        const pageEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/21-5_teamet/?per_page=100";
+        const pageEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/pages/94?_embed";
         const imageEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/media";
+        let konceptet = [];
         let images = [];
-        let udtalelser = [];
 
-        let menuContainer = document.querySelector("#menu");
+        let container = document.querySelector("#menu");
         let menupunktTemplate = document.querySelector("#menu-template");
 
 
@@ -119,48 +110,40 @@
 
         async function loadData() {
             const pageResponse = await fetch(pageEndpoint);
-            udtalelser = await pageResponse.json();
-            console.log(udtalelser);
+            konceptet = await pageResponse.json();
+            console.log(konceptet);
 
 
             const imageResponse = await fetch(imageEndpoint);
             images = await imageResponse.json();
-            visUdtalelser();
+
+            visKonceptet();
         }
 
 
-        function visUdtalelser() {
-            let container = document.querySelector("#container");
-            let udtalelseTemplate = document.querySelector("#udtalelse-template");
-            container.innerHTML = "";
+        function visKonceptet() {
+            let introSec = document.querySelector("h1");
 
-            udtalelser.forEach(element => {
-                //console.log(element);
-                let klon = udtalelseTemplate.cloneNode(true).content;
+            introSec.textContent = konceptet.title.rendered;
 
-                klon.querySelector("h2").textContent = element.navn;
-                klon.querySelector("#billede").style.backgroundImage = `url(${element.billede.guid})`;
-
-                //klon.querySelector("img").src = `${element.billede.guid}`;
-
-                klon.querySelector("p").innerHTML = element.content.rendered;
-
-                container.appendChild(klon);
-
+            let content = konceptet.content.rendered.split(`<hr class="wp-block-separator"/>`);
+            console.log(content);
+            content.forEach(afsnit => {
+                document.querySelector("#intro-text").innerHTML = content[0];
             });
 
 
             let dropdown = document.querySelector("#dropdown");
             dropdown.addEventListener("click", visDropdown);
 
-            menuContainer.innerHTML = "";
+            container.innerHTML = "";
             allPages.forEach(page => {
 
                 if (page.parent == 94) {
-                    let menuKlon = menupunktTemplate.cloneNode(true).content;
-                    menuKlon.querySelector("a").href = page.slug + ".html";
-                    menuKlon.querySelector("a").textContent = page.title.rendered;
-                    menuContainer.appendChild(menuKlon);
+                    let klon = menupunktTemplate.cloneNode(true).content;
+                    klon.querySelector("a").href = page.slug + ".html";
+                    klon.querySelector("a").textContent = page.title.rendered;
+                    container.appendChild(klon);
                 }
             });
         }
