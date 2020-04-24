@@ -144,68 +144,69 @@
      width: 60px;
  }
 
- #konceptet-menu {
+
+ #om-os-menu {
      display: flex;
      align-items: center;
      justify-content: center;
  }
 
- #konceptet-menu h1 {
+ #om-os-menu a {
+     text-decoration: none;
+ }
+
+ #menu-main {
+     display: flex;
+     /*     align-items: center;*/
+     justify-content: center;
+     flex-direction: column;
+     padding: 20px;
+     border: 3px solid #FF6138;
+     border-radius: 5px;
+ }
+
+ .konceptet-container {
+     display: flex;
+     justify-content: center;
+ }
+
+ #om-os-menu h1 {
      margin: 0;
      line-height: 0.9;
      font-size: 1.8rem;
  }
 
- #konceptet-menu a {
-     text-decoration: none;
- }
-
- #praktisk {
-     margin-top: 50px;
-     font-size: 2rem;
-     margin-bottom: 10px;
- }
-
- #hvor h2 {
-     margin: 10px 0;
- }
-
  #dropdown {
-     height: 25px;
-     width: 25px;
-     margin-left: 20px;
-     border: 3px solid #FF6138;
+     height: 15px;
+     width: 15px;
+     margin-left: 15px;
+     margin-top: 6px;
+     /*     border: 3px solid #FF6138;*/
      text-align: center;
      color: #FF6138;
      line-height: 1.1;
      cursor: pointer;
      background-image: url(billeder/arrow.svg);
-     background-size: 10px;
+     background-size: 100%;
      background-repeat: no-repeat;
      background-position: 40%;
+     transform-origin: 50% 50%;
  }
 
  #dropdown p {}
 
  .menu-container {
      width: 100%;
-     margin-top: 20px;
+     margin-top: 15px;
 
      display: flex;
      flex-direction: column;
-     justify-content: center;
+     justify-content: flex-start;
      align-items: center;
      background-color: #fff;
      z-index: 0;
 
- }
-
- #menu {
-     display: flex;
-     flex-direction: column;
-     justify-content: center;
-     align-items: center;
-     z-index: -1;
+     user-select: none;
  }
 
  .menu-container a {
@@ -216,12 +217,19 @@
      margin-bottom: 8px;
      transition: .3s;
      align-self: flex-start;
-     margin-left: -6px;
  }
 
  .menu-container a:hover {
      text-underline-position: below;
      color: #FF6138;
+ }
+
+ #menu {
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+     z-index: -1;
  }
 
  .hide {

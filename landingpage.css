@@ -72,6 +72,17 @@ img {
     padding: 0 40px;
 }
 
+#kaffe a {
+    text-decoration: none;
+    font-family: gingerpro-bold;
+    color: #FF6138;
+    transition: color .3s;
+}
+
+#kaffe a:hover {
+    color: #34170F;
+}
+
 #splash {
     width: 100vw;
     height: 100vh;
