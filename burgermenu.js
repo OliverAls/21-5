@@ -7,6 +7,7 @@ function start() {
     loadData();
 }
 
+//Alle siderne hentes i JSON og indsættes i variablen "allPages"
 async function loadData() {
     const allPagesResponse = await fetch(allPagesEndpoint);
     allPages = await allPagesResponse.json();
@@ -18,26 +19,21 @@ function burgermenu() {
     let menuContainer = document.querySelector("#main-menu");
     let menuTemplate = document.querySelector("#menu-link");
     menuContainer.innerHTML = "";
-    allPages.forEach(page => {
-        if (page.parent == 0) {
+    allPages.forEach(page => { //For hver side gøres følgende:
+        if (page.parent == 0) { //Hvis siderne ikke har nogle parent-sider skal der ske følgende:
 
-            let menuKlon = menuTemplate.cloneNode(true).content;
-            menuKlon.querySelector("a").href = page.slug + ".html";
-            menuKlon.querySelector("a").textContent = page.title.rendered;
-            menuContainer.appendChild(menuKlon);
-
-
-
+            let menuKlon = menuTemplate.cloneNode(true).content; //Hvert objekt tildeles en skabelon
+            menuKlon.querySelector("a").href = page.slug + ".html"; //Hvert link får tildelt deres link
+            menuKlon.querySelector("a").textContent = page.title.rendered; //Linkets tekst indsættes
+            menuContainer.appendChild(menuKlon); //Alle menupunkterne indsættes i menu-containeren
         }
     });
 
     //burgermenu
     let wrapperMenu = document.querySelector('.wrapper-menu');
-    wrapperMenu.addEventListener('click', function () {
+    wrapperMenu.addEventListener('click', function () { //klikker man på burgermenuen sker følgende:
         console.log("click");
-        wrapperMenu.classList.toggle('open');
-
-        document.querySelector(".burgermenu").classList.toggle("hide");
-        //document.querySelector(".burgermenu").classList.toggle("vis-burgermenu");
+        wrapperMenu.classList.toggle('open'); //Klassen "open" toggles
+        document.querySelector(".burgermenu").classList.toggle("hide"); //klassen hide toggles for at vise menu-indhold
     });
 }

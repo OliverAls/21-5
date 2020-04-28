@@ -10,9 +10,10 @@
 
     <link rel="icon" href="billeder/logo2.png" type="image/x-icon">
     <style>
-
-
     </style>
+
+
+    <meta name="description" content="Kender du konceptet 'dele bolig?' Her kan du læse mere om ferieboliger i udlandet til dig og din familie " />
 </head>
 
 <body>
@@ -114,27 +115,9 @@
 
     <script src="burgermenu.js"></script>
     <script>
-        //        window.onload = function() {
-        // if (localStorage.getItem("hasCodeRunBefore") === null) {
-        //
-        //
-        //
-        // console.log("idk1");
-        //
-        //
-        // localStorage.setItem("hasCodeRunBefore", true);
-        // } else {
-        // console.log("idk2");
-        // document.querySelector("#landing-start").style.display = "none";
-        // document.querySelector("#landing-start").innerHTML = "";
-        // }
-        // }
+        document.addEventListener("DOMContentLoaded", start); //Når alt content i DOM'en er loadet udløses funktionen start
 
-
-
-
-        document.addEventListener("DOMContentLoaded", start);
-
+        //Vi definerer et par endpoint som er pages og husstørrelser aka JSON-filer
         const pageEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/pages/13?_embed";
         const houseEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/husstoerrelse";
         let landingpage = [];
@@ -142,28 +125,29 @@
 
 
         function start() {
-            loadData();
+            loadData(); //Vi kalder funktionen loadData, så vi kan skaffe objekterne fra JSON-filen
         }
 
+        //Der laves en async funktion til at skaffe dataen fra JSON-filen
         async function loadData() {
-            const pageResponse = await fetch(pageEndpoint);
-            landingpage = await pageResponse.json();
+            const pageResponse = await fetch(pageEndpoint); //variablen "pageResponse" defineres og skal hente dataen fra endpoint-URL'en
+            landingpage = await pageResponse.json(); //landingpage-array får dataen i response fra JSON-filen
             console.log(landingpage);
 
 
-            const houseResponse = await fetch(houseEndpoint);
-            houseSizes = await houseResponse.json();
-            visLanding();
+            const houseResponse = await fetch(houseEndpoint); //variablen "houseResponse" defineres og skal hente dataen fra endpoint-URL'en
+            houseSizes = await houseResponse.json(); //houseSizes-array får dataen i response fra JSON-filen
+            visLanding(); //funktionen "visLanding" kaldes
         }
 
 
+        //Vi tjekker hvert halve sekund om scroll-positionen på siden
         setInterval(function() {
-            //console.log(window.pageYOffset);
-            if (window.pageYOffset > 780) {
+            if (window.pageYOffset > 780) { //Hvis y-positionen er over 780, så vises den hvide baggrund på navigationsmenuen
                 document.querySelector("nav").classList.add("nav_baggrund");
             }
 
-            if (window.pageYOffset < 780) {
+            if (window.pageYOffset < 780) { //Hvis y-positionen er under 780, så fjernes den hvide baggrund på navigationsmenuen
                 document.querySelector("nav").classList.remove("nav_baggrund");
             }
         }, 500);
@@ -177,36 +161,33 @@
             const splash = document.querySelector("#splash");
             const splashText = document.querySelector("h1");
 
-
+            //vi henter baggrundsbilledet til splash-sektionen fra WP-backend og definerer det som "featured"
             let featured = landingpage._embedded['wp:featuredmedia'][0].source_url;
             console.log(featured);
-            splash.style.backgroundImage = `url(${featured})`;
+            splash.style.backgroundImage = `url(${featured})`; //Vi indsætter vi billedet som source til splash-sektionen
 
 
+            //Vi splitter alt indhold fra backenden ved brug af WP's indbyggede separator block
             let content = landingpage.content.rendered.split(`<hr class="wp-block-separator"/>`);
             //console.log(content);
+
+            //For hvert afsnit i backenden indsættes indholdet i de respektive sektioner
             content.forEach(afsnit => {
                 document.querySelector("#intro").innerHTML = content[0];
                 document.querySelector("#kaffe").innerHTML = content[1];
             });
 
-            //splashText.textContent = landingpage.title.rendered;
-            let container = document.querySelector("#sizes");
-            let husTemplate = document.querySelector("template");
-            container.innerHTML = "";
+            let container = document.querySelector("#sizes"); //Vi definerer en sektion hvori vi ønsker de 3 huskategorier
+            let husTemplate = document.querySelector("template"); //Vi definerer en skabelon for husekategorierne
+            container.innerHTML = ""; //Vi fjerner alt indhold fra hussektionen
 
-            //console.log(houseSizes);
-
+            //For hvert husobjekt i WP-backenden gøres følgende:
             houseSizes.forEach(size => {
-                //console.log(size);
-                let klon = husTemplate.cloneNode(true).content;
-
-                klon.querySelector("h2").textContent = size.navn;
-                klon.querySelector("p").textContent = size.beskrivelse;
-                klon.querySelector("p + p").textContent = size.pris;
-
-                container.appendChild(klon);
-
+                let klon = husTemplate.cloneNode(true).content; //Vi kloner skabelonen for antallet af huse
+                klon.querySelector("h2").textContent = size.navn; //Vi udskriver husets navn
+                klon.querySelector("p").textContent = size.beskrivelse; //Vi udskriver husets beskrivelse
+                klon.querySelector("p + p").textContent = size.pris; //Vi udskriver husets pris
+                container.appendChild(klon); //Vi tilføjer husene som children i hus containeren
             });
 
 

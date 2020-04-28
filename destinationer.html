@@ -12,6 +12,8 @@
     <link rel="icon" href="billeder/logo2.png" type="image/x-icon">
     <style>
     </style>
+
+    <meta name="description" content="Kender du konceptet 'dele bolig?' Her kan du læse mere om ferieboliger i udlandet til dig og din familie " />
 </head>
 
 <body>
@@ -206,34 +208,36 @@
                 document.querySelector("#skaber-hjem").innerHTML = content[7];
             });
 
-            let dropdown = document.querySelector("#dropdown");
-            dropdown.addEventListener("click", visDropdown);
-
-            menuContainer.innerHTML = "";
-            steder.forEach(sted => {
-                let stedKlon = menupunktTemplate.cloneNode(true).content;
+            let dropdown = document.querySelector("#dropdown"); //Vi definerer dropdown-div'en
+            dropdown.addEventListener("click", visDropdown); //Hvis der klikkes på dropdown-ikonet, så skal funktionen "visDropdown" startes
+            menuContainer.innerHTML = ""; //Alt indhold fra menu-containeren slettes, så alt er blankt
+            steder.forEach(sted => { //For hver destination skal der gøres følgende:
+                let stedKlon = menupunktTemplate.cloneNode(true).content; //En skabelon laves for hvert destinationspunkt
                 stedKlon.querySelector("a").href = "#";
-                stedKlon.querySelector("a").textContent = sted.title.rendered;
-                stedKlon.querySelector("a").addEventListener("click", () => {
-                    //URL'en erstattes med "detalje.html?id=" OG sko-ID, da dette er unikt
+                stedKlon.querySelector("a").textContent = sted.title.rendered; //Linkets tekst erstattes med destinationsnavnet
+                stedKlon.querySelector("a").addEventListener("click", () => { //Hvis man klikker på et destinationslink, så skal der ske følgende:
+
+                    //Vi går hen til siden destination.html
+                    //som reference til hver destination angives også stedets slug (altså ?sted=sydfrankrig)
                     location.href = `destination.html?sted=${sted.slug}`;
+
                 });
-                menuContainer.appendChild(stedKlon);
+                menuContainer.appendChild(stedKlon); //alle skabelonerne indsættes i menu-containeren
             });
         }
 
+        //Når der trykkes på dropdownen, så udløses denne funktion
         function visDropdown() {
-            document.querySelector(".menu-container").addEventListener("animationend", menuAnimationDone);
+            document.querySelector(".menu-container").addEventListener("animationend", menuAnimationDone); //Vi laver en funktion, som udløses, når animationen på menu-containeren er færdig
 
-            document.querySelector(".menu-container").classList.add("vis-menu");
-            document.querySelector(".menu-container").classList.toggle("hide");
-
-            document.querySelector("#dropdown").classList.toggle("rotate-arrow");
-            document.querySelector("#dropdown").style.animationDirection = "alternate";
+            document.querySelector(".menu-container").classList.add("vis-menu"); //Vi sætter en animationsklasse på menuen
+            document.querySelector(".menu-container").classList.toggle("hide"); //Vi toggler hide
+            document.querySelector("#dropdown").classList.toggle("rotate-arrow"); //Vi laver en funktion, som
+            document.querySelector("#dropdown").style.animationDirection = "alternate"; //Vi styler pil-ikonet, så den roterer den rigtige vej
         }
 
         function menuAnimationDone() {
-            document.querySelector(".menu-container").classList.remove("vis-menu");
+            document.querySelector(".menu-container").classList.remove("vis-menu"); //Når vis-menu aninmationen er færdig fjernes klassen
         }
 
     </script>

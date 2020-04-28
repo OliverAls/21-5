@@ -11,6 +11,8 @@
 
     <style>
     </style>
+
+    <meta name="description" content="Kender du konceptet 'dele bolig?' Her kan du læse mere om ferieboliger i udlandet til dig og din familie " />
 </head>
 
 <body>
@@ -141,10 +143,11 @@
 
 
         function visKonceptet() {
-            let introSec = document.querySelector("h1");
+            let introSec = document.querySelector("h1"); //Overskriften til siden defineres
+            introSec.textContent = konceptet.title.rendered; //Overskriften indsættes
 
-            introSec.textContent = konceptet.title.rendered;
-
+            //Alt indhold defineres i et array og splittes af WP-backend separator
+            //Indholdet indsættes i deres respektive sektioner
             let content = konceptet.content.rendered.split(`<hr class="wp-block-separator"/>`);
             console.log(content);
             content.forEach(afsnit => {
@@ -160,13 +163,13 @@
             dropdown.addEventListener("click", visDropdown);
 
             container.innerHTML = "";
-            allPages.forEach(page => {
+            allPages.forEach(page => { //For hver side gøres følgende:
 
-                if (page.parent == 42) {
-                    let klon = menupunktTemplate.cloneNode(true).content;
-                    klon.querySelector("a").href = page.slug + ".html";
-                    klon.querySelector("a").textContent = page.title.rendered;
-                    container.appendChild(klon);
+                if (page.parent == 42) { //For alle sider i backenden tjekkes der om de har en parent med ID'et 42 (om-konceptet)
+                    let klon = menupunktTemplate.cloneNode(true).content; //En skabelon defineres
+                    klon.querySelector("a").href = page.slug + ".html"; //linkets url erstattes med det tilsvarende slug
+                    klon.querySelector("a").textContent = page.title.rendered; //Linkets tekst erstattes med titlen på siden
+                    container.appendChild(klon); //Dropdown-containeren får alle links som children
                 }
             });
         }

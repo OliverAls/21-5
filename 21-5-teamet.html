@@ -11,6 +11,8 @@
 
     <style>
     </style>
+
+    <meta name="description" content="Kender du konceptet 'dele bolig?' Her kan du læse mere om ferieboliger i udlandet til dig og din familie " />
 </head>
 
 <body>
@@ -136,24 +138,21 @@
             visUdtalelser();
         }
 
-
+        //Når json-dataen fra udtalelses-pod'en er indlæst kører denne funktion
         function visUdtalelser() {
-            let container = document.querySelector("#container");
-            let udtalelseTemplate = document.querySelector("#udtalelse-template");
-            container.innerHTML = "";
+            let container = document.querySelector("#container"); //Der defineres en container, som skal indeholde alle medarbejderne
+            let udtalelseTemplate = document.querySelector("#udtalelse-template"); //Der defineres en skabelon til medarbejderne
+            container.innerHTML = ""; //Indholdet i containeren slettes for god ordens skyld
 
+            //For hver medarbejder sker følgende:
             udtalelser.forEach(element => {
-                //console.log(element);
-                let klon = udtalelseTemplate.cloneNode(true).content;
+                let klon = udtalelseTemplate.cloneNode(true).content; //Hver medarbejder tildeles en skabelon
 
-                klon.querySelector("h2").textContent = element.navn;
-                klon.querySelector("#billede").style.backgroundImage = `url(${element.billede.guid})`;
+                klon.querySelector("h2").textContent = element.navn; //Navnet på medarbejderen vises i en h2
+                klon.querySelector("#billede").style.backgroundImage = `url(${element.billede.guid})`; //Billedet på medarbejderen indsættes
+                klon.querySelector("p").innerHTML = element.content.rendered; //Beskrivelsen af medarbejderen indsættes
 
-                //klon.querySelector("img").src = `${element.billede.guid}`;
-
-                klon.querySelector("p").innerHTML = element.content.rendered;
-
-                container.appendChild(klon);
+                container.appendChild(klon); //Hver medarbejder indsættes i containeren
 
             });
 

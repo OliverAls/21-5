@@ -12,6 +12,8 @@
 
     <style>
     </style>
+
+    <meta name="description" content="Kender du konceptet 'dele bolig?' Her kan du læse mere om ferieboliger i udlandet til dig og din familie " />
 </head>
 
 <body>
@@ -137,8 +139,8 @@
         const destinationEndpoint = "http://nicohj.dk/kea/wordpress/21-5/wp/wp-json/wp/v2/destination";
         let destination = [];
 
-        const urlParams = new URLSearchParams(window.location.search);
-        const sted = urlParams.get("sted");
+        const urlParams = new URLSearchParams(window.location.search); //urlParams defineres som alt efter spørgsmålstegnet
+        const sted = urlParams.get("sted"); //Værdien efter "sted" gemmes som en variabel
 
         let menuContainer = document.querySelector("#menu");
         let menupunktTemplate = document.querySelector("#menu-template");
@@ -157,16 +159,18 @@
         }
 
 
+        //Når dataen er loadet fra endpointet udløses denne funktion
         function visDestination() {
             let overskrift = document.querySelector("#destination");
 
+            //For hver destination tjekkes der om url-variablen er det samme som i JSON
+            //Hvis "sted"-variablen er den samme som dataen fra endpointet indsættes
             destination.forEach(place => {
                 if (place.slug == sted) {
-                    overskrift.textContent = place.destinationnavn;
-                    document.title = "Destination - " + place.destinationnavn;
+                    overskrift.textContent = place.destinationnavn; //Navnet indsættes i overskrift
+                    document.title = "Destination - " + place.destinationnavn; //titlen på dokumentet erstattes med destination + navnet på destinationen
 
-                    //document.querySelector(".text-container p").textContent = place.beskrivelse;
-
+                    //Alt indholdet fra destinationen indsættes i de respektive sektioner
                     let content = place.content.rendered.split(`<hr class="wp-block-separator"/>`);
                     console.log(content);
                     content.forEach(afsnit => {
