@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="da">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Destinationer</title>
+    <title>Boliger og destinationer</title>
     <link rel="stylesheet" href="destinationer.css">
     <link rel="stylesheet" href="burgermenu.css">
     <link rel="stylesheet" href="billedeserie-indretning.css">
@@ -61,7 +61,7 @@
             <div id="destinationer-menu">
                 <div id="menu-main">
                     <div class="destinationer-container">
-                        <h1 id="destinationer-titel"></h1>
+                        <h1 id="destinationer-titel">Destinationer</h1>
                         <div id="dropdown"></div>
                     </div>
 
@@ -141,9 +141,9 @@
             </div>
 
             <div class="socials">
-                <a href="mailto:info@21-5.dk"><img src="billeder/mail.svg"></a>
-                <a href="https://www.instagram.com/215moments/"><img src="billeder/instagram.svg"></a>
-                <a href="https://www.facebook.com/enogtyvefem/"><img src="billeder/facebook.svg"></a>
+                <a href="mailto:info@21-5.dk"><img src="billeder/mail.svg" alt="Mail-ikon"></a>
+                <a href="https://www.instagram.com/215moments/"><img src="billeder/instagram.svg" alt="Instagram-ikon"></a>
+                <a href="https://www.facebook.com/enogtyvefem/"><img src="billeder/facebook.svg" alt="Facebook-ikon"></a>
             </div>
         </div>
 
@@ -191,9 +191,8 @@
             splash.style.backgroundImage = `url(${featured})`;
 
 
-            let introSec = document.querySelector("#destinationer-titel");
-
-            introSec.textContent = destinationer.title.rendered;
+            //let introSec = document.querySelector("#destinationer-titel");
+            //introSec.textContent = destinationer.title.rendered;
 
             let content = destinationer.content.rendered.split(`<hr class="wp-block-separator"/>`);
             console.log(content);
