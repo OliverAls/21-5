@@ -69,7 +69,7 @@
 
      display: flex;
      justify-content: center;
-     /*    align-items: center;*/
+     align-items: flex-end;
  }
 
  #splash h1 {
@@ -271,6 +271,38 @@
  }
 
 
+ #splash .scroll-container {
+     height: 60px;
+     width: 60px;
+     margin-bottom: 40px;
+ }
+
+ #splash .scroll-container p {
+     font-family: gingerpro-bold;
+     text-align: center;
+     margin: 0;
+     font-size: 0.7rem;
+     color: #000;
+     text-shadow: 4px 2px 5px rgba(255, 255, 255, .5);
+ }
+
+ #splash .scroll-container .scroll-img {
+     background-image: url(billeder/iconmouse.svg);
+     background-position: center;
+     background-repeat: no-repeat;
+
+     height: 100%;
+     width: 100%;
+ }
+
+ .scroll-animation {
+     animation-name: scroll_animation_kf;
+     animation-duration: 2.40s;
+     animation-timing-function: ease-out;
+     animation-iteration-count: infinite;
+ }
+
+
 
 
 
@@ -393,5 +425,31 @@
 
      100% {
          transform: rotate(180deg);
+     }
+ }
+
+
+ @keyframes scroll_animation_kf {
+     0% {
+         opacity: 0;
+         transform: translateY(-20px);
+     }
+
+     25% {
+         transform: translateY(0);
+     }
+
+     35% {
+         opacity: 1;
+         transform: translateY(0);
+     }
+
+     80% {
+         opacity: 1;
+         transform: translateY(0);
+     }
+
+     100% {
+         opacity: 0;
      }
  }
